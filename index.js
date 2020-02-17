@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 const bot = new Discord.Client();
 const token = "Njc2MTI0Mzk1Nzg1NDIwODAx.Xkqy5Q.jpuZuQRI1Lw0eoX0z17uc10UMws";
 const pre = "-";
+var master, startedGame = false;
 
 bot.on("ready", () => {
 	console.log("BOT IS ONLINE!");
@@ -11,8 +12,12 @@ bot.on("ready", () => {
 
 var players = [];
 var weapons = [
-	["Pipsa", "1 ha asesinado a 2 sin ningun tipo de piedad", 10],
-	["Bandicoondon", "1 ha asesinado a 2 sin ningun tipo de piedad", 5]
+	["Pipsa", 10],
+	["Bandicoondon", 5]
+];
+var object = [
+	["Escudo", 5],
+	["Bandicoondon", 5]
 ];
 
 
@@ -34,6 +39,11 @@ bot.on("message", msg => {
 				"-show     To show the Battle Royale current state\n");
 	}
 
+	if (txt.startsWith(pre + "IMMASTER")) {
+		master = msg.author;
+		msg.author.send("You are now master.")
+	}
+
 	if (txt.startsWith(pre+"ADD")) {
 		var mention = msg.mentions.users.first();
 		if (mention == null) {
@@ -42,9 +52,10 @@ bot.on("message", msg => {
 		} else {
 			players.push(mention);
 			players[players.length - 1].weapon = 0;//
-			players[players.length - 1].ally = 0;//
+			players[players.length - 1].object = 0;//
+			players[players.length - 1].ally = 3;//
+			players[players.length - 1].dead = false;//
 			dc.send("Added " + players[players.length - 1]);
-			dc.send("Weapon " + players[players.length - 1].weapon);//
 		}
 	}
 
@@ -57,7 +68,7 @@ bot.on("message", msg => {
 		var embd = new Discord.RichEmbed()
 			.setColor("#ffff00")
 			.setTitle("JUGONES BATTLE ROYALE")
-			.setDescription(text + "\n"+weapons[1][0])
+			.setDescription(text + "\n")
 			.setFooter("Quedan "+" jugadores restantes.");
 		dc.send(embd);
 	}
