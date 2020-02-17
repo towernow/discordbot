@@ -35,8 +35,14 @@ bot.on("message", msg => {
 	else if (txt.indexOf("JAJAJA") != -1) {
 		dc.send("jajaj");
 	}
-	else if (txt.indexOf("LOL") != -1) {
+	else if (txt.indexOf("LEL") != -1) {
 		dc.send("tu, vendete ya la cuenta va");
+	}
+	else if (txt.indexOf("GILIPOLLAS") != -1) {
+		dc.send("tu madre");
+	}
+	else if (txt.startsWith("JO") != -1) {
+		dc.send("llora imbecil");
 	}
 
 
