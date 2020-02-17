@@ -15,28 +15,28 @@ var players = [];
 
 bot.on("message", msg => {
 	var dc = msg.channel; //default channel
+	var txt = msg.content.toUpperCase();
 
-	if (msg.content == "hola" || msg.content == "Hola") {
+
+	if (txt == "HOLA") {
 		dc.send("que tal bro");
-	} else if (msg.content == "HOLA") {
-		dc.send("no grites loko");
-	} else if (msg.content.toUpperCase() == "ERES UN BOT?") {
+	} else if (txt == "ERES UN BOT?") {
 		dc.send("lol no");
 	}
 
 
-	if (msg.content.startsWith(pre+"addPlayer")) {
+	if (txt.startsWith(pre+"addplayer")) {
 		var mention = msg.mentions.users.first();
 		if (mention == null) {
 			dc.send("Incluye una mención válida.");
 		} else {
 			players.push(mention);
-			dc.send("Added <@" + players[players.length-1] + ">");
+			dc.send("Added " + players[players.length-1]);
 		}
 	}
-	if (msg.content == pre + "showplayers") {
-		for (var i = 0; i < playerIDs.length; i++) {
-			dc.send("Player: <@" + players[i] + ">");
+	if (txt == pre+"showplayers") {
+		for (var i = 0; i < players.length; i++) {
+			dc.send("Player: " + players[i]);
 		}
 	}
 })
