@@ -1,7 +1,8 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
-
+const pre = '-';
 const token = 'Njc2MTI0Mzk1Nzg1NDIwODAx.Xkqy5Q.jpuZuQRI1Lw0eoX0z17uc10UMws';
+var dc = "";
 
 bot.on('ready', () => {
 	console.log('BOT IS ONLINE!');
@@ -9,9 +10,13 @@ bot.on('ready', () => {
 
 bot.on('message', msg => {
 	if (msg.content === "hola" || msg.content === "Hola") {
-		msg.reply('hola que tal loko');
+		dc.send('que tal bro');
 	}else if (msg.content === "HOLA") {
-		msg.reply('no grites loko');
+		dc.send('no grites loko');
+	}
+
+	if (msg.content === pre + "setdefaultchannel") {
+		dc = msg.channel_id;
 	}
 })
 
