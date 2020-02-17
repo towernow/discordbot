@@ -5,12 +5,13 @@ const pre = "-";
 
 bot.on("ready", () => {
 	console.log("BOT IS ONLINE!");
-	
 })
 
 /////////////////////////////////////////////////////////////////////////////////////
 
 var players = [];
+var weapons =  [["Pipsa", "1 ha asesinado a 2 sin ningun tipo de piedad", 10],
+				["Bandicoondon", "1 ha asesinado a 2 sin ningun tipo de piedad", 5]];
 
 
 bot.on("message", msg => {
@@ -20,12 +21,18 @@ bot.on("message", msg => {
 
 	if (txt == "HOLA") {
 		dc.send("que tal bro");
-	} else if (txt == "ERES UN BOT?") {
+	}
+	else if (txt == "ERES UN BOT?") {
 		dc.send("lol no");
 	}
 
 
-	if (txt.startsWith(pre+"ADDPLAYER")) {
+	if (txt.startsWith(pre + "HELP")) {
+		dc.send("-add @UserMention     Para añadir un jugador al Battle Royale\n" +
+				"-show     Para mostrar todos los jugadores del Battle Royale y sus stats\n");
+	}
+
+	if (txt.startsWith(pre+"ADD")) {
 		var mention = msg.mentions.users.first();
 		if (mention == null) {
 			dc.send("Incluye una mención válida.");
@@ -36,10 +43,19 @@ bot.on("message", msg => {
 			dc.send("Weapon " + players[players.length - 1].weapon);
 		}
 	}
-	if (txt == pre+"SHOWPLAYERS") {
+
+	if (txt.startsWith(pre + "SHOW")) {
+		var text = "";
 		for (var i = 0; i < players.length; i++) {
-			dc.send(i+":" + players[i]);
+			text += i+":" + players[i] + "\n";
 		}
+
+		var embd = new Discord.RichEmbed()
+			.setColor('#0099ff')
+			.setTitle('JUGONES BATTLE ROYALE')
+			.setDescription(text + "\n"+weapons[1][0])
+			.setFooter("Quedan "+" jugadores restantes.");
+		dc.send(embd);
 	}
 })
 
