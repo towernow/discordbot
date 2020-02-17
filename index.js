@@ -4,7 +4,7 @@ const bot = new Discord.Client();
 const token = 'Njc2MTI0Mzk1Nzg1NDIwODAx.Xkqy5Q.jpuZuQRI1Lw0eoX0z17uc10UMws';
 
 bot.on('ready', () => {
-	console.log('BOT IS ONLINE!');
+	console.log('BOT IS UP!');
 })
 
 bot.on('message', msg => {
