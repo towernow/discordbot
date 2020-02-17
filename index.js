@@ -32,8 +32,8 @@ bot.on("message", msg => {
 	else if (txt.indexOf("ERES UN BOT?") != -1) {
 		dc.send("lol no");
 	}
-	else if (txt.indexOf("JAJA") != -1) {
-		dc.send("jajaja");
+	else if (txt.indexOf("JAJAJA") != -1) {
+		dc.send("jajaj");
 	}
 	else if (txt.indexOf("LOL") != -1) {
 		dc.send("tu, vendete ya la cuenta va");
