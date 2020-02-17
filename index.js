@@ -17,7 +17,7 @@ var weapons = [
 ];
 var object = [
 	["Escudo", 5],
-	["Bandicoondon", 5]
+	["T", 5]
 ];
 
 
@@ -26,11 +26,17 @@ bot.on("message", msg => {
 	var txt = msg.content.toUpperCase();
 
 
-	if (txt == "HOLA") {
+	if (txt.indexOf("HOLA") != -1) {
 		dc.send("que tal bro");
 	}
-	else if (txt == "ERES UN BOT?") {
+	else if (txt.indexOf("ERES UN BOT?") != -1) {
 		dc.send("lol no");
+	}
+	else if (txt.indexOf("JAJA") != -1) {
+		dc.send("jajaja");
+	}
+	else if (txt.indexOf("LOL") != -1) {
+		dc.send("tu, vendete ya la cuenta va");
 	}
 
 
