@@ -31,12 +31,14 @@ bot.on("message", msg => {
 			dc.send("Incluye una mención válida.");
 		} else {
 			players.push(mention);
-			dc.send("Added " + players[players.length-1]);
+			players[players.length - 1].weapon = "escoba";
+			dc.send("Added " + players[players.length - 1]);
+			dc.send("Weapon " + players[players.length - 1].weapon);
 		}
 	}
 	if (txt == pre+"SHOWPLAYERS") {
 		for (var i = 0; i < players.length; i++) {
-			dc.send("Player: " + players[i]);
+			dc.send(i+":" + players[i]);
 		}
 	}
 })
