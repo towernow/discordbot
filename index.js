@@ -25,14 +25,14 @@ bot.on("message", msg => {
 	}
 
 
-	if (msg.content == pre+"addPlayer") {
+	if (msg.startsWith(pre+"addPlayer")) {
 		var mention = msg.mentions.users.first();
-		if (mention != null) {
-			players.push(mention);
-		} else {
+		if (mention == null) {
 			dc.send("Incluye una mención válida.");
+		} else {
+			players.push(mention);
+			dc.send("Added <@$" + mention.id + ">");
 		}
-		dc.send("Added <@$" + mention.id + ">");
 	}
 	if (msg.content == pre + "showplayers") {
 		for (var i = 0; i < playerIDs.length; i++) {
