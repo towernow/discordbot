@@ -41,9 +41,6 @@ bot.on("message", msg => {
 	else if (txt.indexOf("GILIPOLLAS") != -1) {
 		dc.send("tu madre");
 	}
-	else if (txt.startsWith("JO") != -1) {
-		dc.send("llora imbecil");
-	}
 
 
 	if (txt.startsWith(pre + "HELP")) {
