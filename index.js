@@ -25,7 +25,7 @@ bot.on("message", msg => {
 	}
 
 
-	if (msg.startsWith(pre+"addPlayer")) {
+	if (msg.content.startsWith(pre+"addPlayer")) {
 		var mention = msg.mentions.users.first();
 		if (mention == null) {
 			dc.send("Incluye una mención válida.");
