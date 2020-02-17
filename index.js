@@ -25,7 +25,7 @@ bot.on("message", msg => {
 	}
 
 
-	if (txt.startsWith(pre+"addplayer")) {
+	if (txt.startsWith(pre+"ADDPLAYER")) {
 		var mention = msg.mentions.users.first();
 		if (mention == null) {
 			dc.send("Incluye una mención válida.");
@@ -34,7 +34,7 @@ bot.on("message", msg => {
 			dc.send("Added " + players[players.length-1]);
 		}
 	}
-	if (txt == pre+"showplayers") {
+	if (txt == pre+"SHOWPLAYERS") {
 		for (var i = 0; i < players.length; i++) {
 			dc.send("Player: " + players[i]);
 		}
