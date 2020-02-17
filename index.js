@@ -5,7 +5,6 @@ const pre = "-";
 
 bot.on("ready", () => {
 	console.log("BOT IS ONLINE!");
-	Client.fetchUser(274857535113134081).send("BOT IS ONLINE!");
 	
 })
 
