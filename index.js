@@ -30,12 +30,12 @@ bot.on("message", msg => {
 		dc.send("que tal bro");
 	}
 	else if (txt.indexOf("ERES UN BOT?") != -1) {
-		dc.send("lol no");
+		dc.send("lel no");
 	}
 	else if (txt.indexOf("JAJAJA") != -1) {
 		dc.send("jajaj");
 	}
-	else if (txt.indexOf("LEL") != -1) {
+	else if (txt.indexOf("LOL") != -1) {
 		dc.send("tu, vendete ya la cuenta va");
 	}
 	else if (txt.indexOf("GILIPOLLAS") != -1) {
@@ -78,7 +78,7 @@ bot.on("message", msg => {
 			.setColor("#ffff00")
 			.setTitle("JUGONES BATTLE ROYALE")
 			.setDescription(text + "\n")
-			.setFooter("Quedan "+" jugadores restantes.");
+			.setFooter("Quedan "+" jugadores restantes");
 		dc.send(embd);
 	}
 })
