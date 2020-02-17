@@ -31,12 +31,12 @@ bot.on("message", msg => {
 			dc.send("Incluye una mención válida.");
 		} else {
 			players.push(mention);
-			dc.send("Added <@$" + mention.id + ">");
+			dc.send("Added <@" + players[players.length-1] + ">");
 		}
 	}
 	if (msg.content == pre + "showplayers") {
 		for (var i = 0; i < playerIDs.length; i++) {
-			dc.send("Player: <@$" + players[i] + ">");
+			dc.send("Player: <@" + players[i] + ">");
 		}
 	}
 })
