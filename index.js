@@ -10,8 +10,10 @@ bot.on("ready", () => {
 /////////////////////////////////////////////////////////////////////////////////////
 
 var players = [];
-var weapons =  [["Pipsa", "1 ha asesinado a 2 sin ningun tipo de piedad", 10],
-				["Bandicoondon", "1 ha asesinado a 2 sin ningun tipo de piedad", 5]];
+var weapons = [
+	["Pipsa", "1 ha asesinado a 2 sin ningun tipo de piedad", 10],
+	["Bandicoondon", "1 ha asesinado a 2 sin ningun tipo de piedad", 5]
+];
 
 
 bot.on("message", msg => {
@@ -28,19 +30,21 @@ bot.on("message", msg => {
 
 
 	if (txt.startsWith(pre + "HELP")) {
-		dc.send("-add @UserMention     Para añadir un jugador al Battle Royale\n" +
-				"-show     Para mostrar todos los jugadores del Battle Royale y sus stats\n");
+		dc.send("-add @User     To add a player\n" +
+				"-show     To show the Battle Royale current state\n");
 	}
 
 	if (txt.startsWith(pre+"ADD")) {
 		var mention = msg.mentions.users.first();
 		if (mention == null) {
-			dc.send("Incluye una mención válida.");
+			players.push(msg.content.substring(msg.content.indexOf("@")));
+			dc.send("Added a non-discord player");
 		} else {
 			players.push(mention);
-			players[players.length - 1].weapon = "escoba";
+			players[players.length - 1].weapon = 0;//
+			players[players.length - 1].ally = 0;//
 			dc.send("Added " + players[players.length - 1]);
-			dc.send("Weapon " + players[players.length - 1].weapon);
+			dc.send("Weapon " + players[players.length - 1].weapon);//
 		}
 	}
 
@@ -51,8 +55,8 @@ bot.on("message", msg => {
 		}
 
 		var embd = new Discord.RichEmbed()
-			.setColor('#0099ff')
-			.setTitle('JUGONES BATTLE ROYALE')
+			.setColor("#ffff00")
+			.setTitle("JUGONES BATTLE ROYALE")
 			.setDescription(text + "\n"+weapons[1][0])
 			.setFooter("Quedan "+" jugadores restantes.");
 		dc.send(embd);
