@@ -43,10 +43,6 @@ bot.on("message", msg => {
 	}
 
 
-	if (txt.startsWith(pre + "HELP")) {
-		dc.send("-add @User     To add a player\n" +
-				"-show     To show the Battle Royale current state\n");
-	}
 
 	if (txt.startsWith(pre + "IMMASTER")) {
 		master = msg.author;
@@ -64,20 +60,29 @@ bot.on("message", msg => {
 			players[players.length - 1].object = 0;//
 			players[players.length - 1].ally = 3;//
 			players[players.length - 1].dead = false;//
-			dc.send("Added " + players[players.length - 1]);
+
+			var embd = new Discord.RichEmbed()
+				.setColor("#ffff00")
+				.setTitle("JUGONES BATTLE ROYALE")
+				.setDescription("Added " + players[players.length - 1])
+			dc.send(embd);
 		}
 	}
 
 	if (txt.startsWith(pre + "SHOW")) {
 		var text = "";
 		for (var i = 0; i < players.length; i++) {
-			text += i+":" + players[i] + "\n";
+			var wea = players[i].weapon;
+			var obj = players[i].object;
+			var all = players[i].ally;
+			var ded = players[i].dead;
+			text += i+" " + players[i] + "\n";
 		}
 
 		var embd = new Discord.RichEmbed()
 			.setColor("#ffff00")
 			.setTitle("JUGONES BATTLE ROYALE")
-			.setDescription(text + "\n")
+			.setDescription(text)
 			.setFooter("Quedan "+" jugadores restantes");
 		dc.send(embd);
 	}
