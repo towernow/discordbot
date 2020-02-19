@@ -25,7 +25,7 @@ bot.on("message", msg => {
 	var dc = msg.channel; //default channel
 	var txt = msg.content.toUpperCase();
 
-	if (msg.author == bot)
+	if (msg.author.bot)
 		return;
 
 	if (txt.indexOf("HOLA") != -1) {
@@ -47,7 +47,8 @@ bot.on("message", msg => {
 		dc.send("te traigo pañuelos tio?");
 	}
 	else if ((" " + txt + " ").indexOf(" TU ") != -1) {
-		dc.send("te estas jugando un baneo loko..");
+		dc.send("te aviso, te estas jugando un baneo loko..");
+		msg.author.setVoiceChannel(null);
 	}
 
 
