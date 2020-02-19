@@ -1,8 +1,9 @@
 ﻿const Discord = require("discord.js");
 const bot = new Discord.Client();
 const token = "Njc2MTI0Mzk1Nzg1NDIwODAx.Xkqy5Q.jpuZuQRI1Lw0eoX0z17uc10UMws";
+const ms = require("ms");
 const pre = "-";
-var master, startedGame = false;
+var master, dc, startedGame = false;
 
 bot.on("ready", () => {
 	console.log("BOT IS ONLINE!");
@@ -15,14 +16,10 @@ var weapons = [
 	["Pipsa", 10],
 	["Bandicoondon", 5]
 ];
-var object = [
-	["Escudo", 5],
-	["T", 5]
-];
 
 
 bot.on("message", msg => {
-	var dc = msg.channel; //default channel
+	dc = msg.channel; //default channel
 	var txt = msg.content.toUpperCase();
 
 	if (msg.author.bot)
@@ -69,15 +66,11 @@ bot.on("message", msg => {
 					players.push(args[1]);
 				} else {
 					players.push(mention);
-					players[players.length - 1].weapon = 0;//
-					players[players.length - 1].object = 0;//
-					players[players.length - 1].ally = 3;//
-					players[players.length - 1].dead = false;//
 				}
 
 				var embd = new Discord.RichEmbed()
 					.setColor("#ffff00")
-					.setTitle("JUGONES BATTLE ROYALE")
+					.setTitle("🌟JUGONES BATTLE ROYALE🌟")
 					.setDescription("Added player " + players[players.length - 1])
 				dc.send(embd);
 			}
@@ -89,56 +82,65 @@ bot.on("message", msg => {
 
 				var embd = new Discord.RichEmbed()
 					.setColor("#ffff00")
-					.setTitle("JUGONES BATTLE ROYALE")
-					.setDescription("Added weapon " + weapons[weapons.length - 1][0] + " with level " + weapons[weapons.length - 1][1]);
+					.setTitle("🌟JUGONES BATTLE ROYALE🌟")
+					.setDescription("Added weapon " + weapons[weapons.length - 1][0] + " with power " + weapons[weapons.length - 1][1]);
 				dc.send(embd);
 			}
 		break;
-		case "ADDOBJECT":
-			if (msg.author == master && args[1] != null && args[2] != null) {
-				object.push([args[1], args[2]]);
+
+		case "START":
+			if (msg.author == master) {
+				startedGame = true;
+				nextTurn(30000); //Time ms
 
 				var embd = new Discord.RichEmbed()
 					.setColor("#ffff00")
-					.setTitle("JUGONES BATTLE ROYALE")
-					.setDescription("Added object " + objects[objects.length - 1][0] + " with level " + objects[objects.length - 1][1]);
+					.setTitle("🌟JUGONES BATTLE ROYALE🌟")
+					.setDescription("¡DA COMIENZO EL JUGONES BATTLE ROYALE!");
 				dc.send(embd);
 			}
 		break;
 
-		case "SHOWITEMS":
-			
-			
+		case "SHOWWEAPONS":
+			var text = "";
+			for (var i = 0; i < weapons.length; i++) {
+				text += weapons[i][0] + " with power " + weapons[i][1] + "\n";
+			}
+
 			var embd = new Discord.RichEmbed()
 				.setColor("#ffff00")
-				.setTitle("JUGONES BATTLE ROYALE")
-				.setDescription("Added object " + objects[objects.length - 1][0] + " with level " + objects[objects.length - 1][1]);
+				.setTitle("🌟JUGONES BATTLE ROYALE🌟")
+				.setDescription(text)
 			dc.send(embd);
 		break;
 
 		case "SHOW":
 			var text = "";
 			for (var i = 0; i < players.length; i++) {
-				var wea = players[i].weapon;
-				var obj = players[i].object;
-				var all = players[i].ally;
-				var ded = players[i].dead;
-				text += i + " " + players[i] + "⚔️👜💑" + "\n";
+				text += (players[i].dead ? "💀 " : "⭐ ") + players[i] + " :  ⚔️" + players[i].weapon1 + " ⚔️" + players[i].weapon2 + " 💑" + players[i].ally + "\n";
+			}
+
+			var jgRestantes = 0;
+			for (var i = 0; i < players.length; i++) {
+				if (players[i].dead)
+					jgRestantes++;
 			}
 
 			var embd = new Discord.RichEmbed()
 				.setColor("#ffff00")
-				.setTitle("JUGONES BATTLE ROYALE")
+				.setTitle("🌟JUGONES BATTLE ROYALE🌟")
 				.setDescription(text)
-				.setFooter("Quedan " + " jugadores restantes");
+				.setFooter("Quedan " + jgRestantes + " jugadores restantes");
 			dc.send(embd);
 		break;
 
 	}
 })
 
-function nextTurn() {
-	
+function nextTurn(everySeconds) {
+	dc.send("tick");
+
+	setTimeout(function () { nextTurn(everySeconds); }, everySeconds);
 }
 
 bot.login(process.env.token);
