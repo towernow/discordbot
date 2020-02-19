@@ -31,6 +31,9 @@ bot.on("message", msg => {
 	if (txt.indexOf("HOLA") != -1) {
 		dc.send("que tal bro");
 	}
+	else if (txt.indexOf("PUTO") != -1 || txt.indexOf("PUTA") != -1) {
+		dc.send("eeeeh");
+	}
 	else if (txt.indexOf("ERES UN BOT?") != -1) {
 		dc.send("lol no");
 	}
@@ -60,24 +63,23 @@ bot.on("message", msg => {
 		break;
 
 		case "ADDPLAYER":
-			if (!startedGame) {
+			if (!startedGame && args[1] != null) {
 				var mention = msg.mentions.users.first();
 				if (mention == null) {
-					players.push(msg.content.substring(msg.content.indexOf("@")));
-					dc.send("Added a non-discord player");
+					players.push(args[1]);
 				} else {
 					players.push(mention);
 					players[players.length - 1].weapon = 0;//
 					players[players.length - 1].object = 0;//
 					players[players.length - 1].ally = 3;//
 					players[players.length - 1].dead = false;//
-
-					var embd = new Discord.RichEmbed()
-						.setColor("#ffff00")
-						.setTitle("JUGONES BATTLE ROYALE")
-						.setDescription("Added player" + players[players.length - 1])
-					dc.send(embd);
 				}
+
+				var embd = new Discord.RichEmbed()
+					.setColor("#ffff00")
+					.setTitle("JUGONES BATTLE ROYALE")
+					.setDescription("Added player" + players[players.length - 1])
+				dc.send(embd);
 			}
 		break;
 
