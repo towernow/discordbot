@@ -90,7 +90,7 @@ bot.on("message", msg => {
 		case "START":
 			if (msg.author == master) {
 				startedGame = true;
-				nextTurn(30000); //Time ms
+				nextTurn(60*1000); //Time ms
 
 				var embd = new Discord.RichEmbed()
 					.setColor("#ffff00")
@@ -103,7 +103,7 @@ bot.on("message", msg => {
 		case "SHOWWEAPONS":
 			var text = "";
 			for (var i = 0; i < weapons.length; i++) {
-				text += weapons[i][0] + " with power " + weapons[i][1] + "\n";
+				text += weapons[i][0].toUpperCase() + " with power " + weapons[i][1] + "\n";
 			}
 
 			var embd = new Discord.RichEmbed()
@@ -114,10 +114,7 @@ bot.on("message", msg => {
 		break;
 
 		case "SHOW":
-			var text = "";
-			for (var i = 0; i < players.length; i++) {
-				text += (players[i].dead ? "💀 " : "⭐ ") + players[i] + " :  ⚔️" + players[i].weapon1 + " ⚔️" + players[i].weapon2 + " 💑" + players[i].ally + "\n";
-			}
+			var text = returnStats();
 
 			var jgRestantes = 0;
 			for (var i = 0; i < players.length; i++) {
@@ -137,9 +134,18 @@ bot.on("message", msg => {
 })
 
 function nextTurn(everySeconds) {
-	dc.send("tick");
+	dc.send(returnStats());
 
 	setTimeout(function () { nextTurn(everySeconds); }, everySeconds);
 }
+
+function returnStats() {
+	var txt = "";
+	for (var i = 0; i < players.length; i++) {
+		txt += (players[i].dead ? "💀 " : "⭐ ") + players[i] + " :     ⚔️" + players[i].weapon1 + " ⚔️" + players[i].weapon2 + " 💑" + players[i].ally + "\n";
+	}
+
+	return txt;
+} 
 
 bot.login(process.env.token);
