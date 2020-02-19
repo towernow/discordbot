@@ -54,8 +54,8 @@ bot.on("message", msg => {
 	}
 
 
-	let args = txt.substring(pre.length).split(" ");
-	switch (args[0]) {
+	let args = msg.content.substring(pre.length).split(" ");
+	switch (args[0].toUpperCase()) {
 
 		case "IMMASTER":
 			master = msg.author;
@@ -78,7 +78,7 @@ bot.on("message", msg => {
 				var embd = new Discord.RichEmbed()
 					.setColor("#ffff00")
 					.setTitle("JUGONES BATTLE ROYALE")
-					.setDescription("Added player" + players[players.length - 1])
+					.setDescription("Added player " + players[players.length - 1])
 				dc.send(embd);
 			}
 		break;
