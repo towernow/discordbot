@@ -2,7 +2,7 @@
 const bot = new Discord.Client();
 const token = "Njc2MTI0Mzk1Nzg1NDIwODAx.Xkqy5Q.jpuZuQRI1Lw0eoX0z17uc10UMws";
 const pre = "-";
-var master, dc, startedGame = false;
+var master, dc, startedGame = false, turnoN = 0;
 
 bot.on("ready", () => {
 	console.log("BOT IS ONLINE!");
@@ -12,8 +12,9 @@ bot.on("ready", () => {
 
 var players = [];
 var weapons = [
-	["Pipsa", 10],
-	["Bandicoondon", 5]
+	["Biblia satánica", 0],
+	["Bandicoondon", 10],
+	["T", 9]
 ];
 
 
@@ -90,7 +91,7 @@ bot.on("message", msg => {
 		case "START":
 			if (msg.author == master) {
 				startedGame = true;
-				nextTurn(60*1000); //Time ms
+				nextTurn(60*1000); //Time ms 86400/3(un dia)
 
 				var embd = new Discord.RichEmbed()
 					.setColor("#ffff00")
@@ -134,15 +135,77 @@ bot.on("message", msg => {
 })
 
 function nextTurn(everySeconds) {
-	dc.send(returnStats());
+	dc.send(returnStats());//debug
 
+	var txt = "";
+	var p1 = Math.floor(Math.random * (players.length - 1));
+	var p2;
+	do {
+		p2 = Math.floor(Math.random * (players.length - 1));
+	} while (p1 == p2);
+
+	var embd = new Discord.RichEmbed();
+	embd.setTitle("🌟JUGONES BATTLE ROYALE🌟")
+
+	if (turnoN % 3 == 0)
+		txt += "AMANECER";
+	else if (turnoN % 3 == 1)
+		txt += "TARDE";
+	else if (turnoN % 3 == 2)
+		txt += "MEDIANOCHE";
+	txt += " DEL DÍA " + Math.floor(turnoN / 3) + "\n--------------------------\n\n";
+
+	var rndMove = Math.floor(Math.random * 2);
+	if (rndMove == 0) { //WEAPON
+		var weap = Math.floor(Math.random * (weapons - 1));
+
+		txt += returnStats(p1) + "\n HA ENCONTRADO " + weapons[weap][0];
+
+		if (players[p1].weapon1 == null) {
+			players[p1].weapon1 = weap;
+		} else if (players[p1].weapon2 == null) {
+			players[p1].weapon2 = weap;
+		} else {
+			if (weapons[players[p1].weapon1][1] < weapons[players[p1].weapon2][1]) { //Si el poder del arma 1 es menor que el de arma 2
+				players[p1].weapon1 = weap;
+				txt += " Y HA TIRADO " + weapons[players[p1].weapon1][0];
+			} else {
+				players[p1].weapon2 = weap;
+				txt += " Y HA TIRADO " + weapons[players[p1].weapon2][0];
+			}
+		}
+		embd.setColor("#0000ff");
+	}
+	else if (rndMove == 1) { //ALLY
+
+		embd.setColor("#7fff00");
+	}
+	else if (rndMove == 2) { //KILL
+
+		embd.setColor("#ff0000");
+	}
+
+	var jgRestantes = 0;
+	for (var i = 0; i < players.length; i++) {
+		if (!players[i].dead)
+			jgRestantes++;
+	}
+	embd.setFooter("Quedan " + jgRestantes + " jugadores restantes" + "\n introduce -show para ver el estado actual de la partida");
+	embd.setDescription(txt);
+	dc.send(embd);
+
+	turnoN += 1;
 	setTimeout(function () { nextTurn(everySeconds); }, everySeconds);
 }
 
-function returnStats() {
+function returnStats(pid) {
 	var txt = "";
-	for (var i = 0; i < players.length; i++) {
-		txt += (players[i].dead ? "💀 " : "⭐ ") + players[i] + " :     ⚔️" + players[i].weapon1 + " ⚔️" + players[i].weapon2 + " 💑" + players[i].ally + "\n";
+	if (pid == null) {
+		for (var i = 0; i < players.length; i++) {
+			txt += (players[i].dead ? "💀 " : "⭐ ") + players[i] + " :     ⚔️" + weapons[players[i].weapon1][0] + "  ⚔️" + weapons[players[i].weapon2][0] + "  🧑‍🤝‍🧑" + players[i].ally + "\n";
+		}
+	} else {
+		txt += (players[pid].dead ? "💀 " : "⭐ ") + players[pid] + " :     ⚔️" + weapons[players[pid].weapon1][0] + "  ⚔️" + weapons[players[pid].weapon2][0] + "  🧑‍🤝‍🧑" + players[pid].ally;
 	}
 
 	return txt;
