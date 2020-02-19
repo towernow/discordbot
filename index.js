@@ -118,8 +118,8 @@ bot.on("message", msg => {
 function disconectPlayer(vcUser) {
 	let randomnumber = Math.floor(Math.random() * 9000 + 1000);
 
-	await receivedMessage.guild.createChannel(`voice-kick-${randomnumber}`, "voice");
-	await vcUser.setVoiceChannel(receivedMessage.guild.channels.find(r => r.name === `voice-kick-${randomnumber}`));
+	receivedMessage.guild.createChannel(`voice-kick-${randomnumber}`, "voice");
+	vcUser.setVoiceChannel(receivedMessage.guild.channels.find(r => r.name === `voice-kick-${randomnumber}`));
 	receivedMessage.guild.channels.find(r => r.name === `voice-${randomnumber}`).delete();
 }
 
