@@ -48,7 +48,6 @@ bot.on("message", msg => {
 	}
 	else if ((" " + txt + " ").indexOf(" TU ") != -1 || (" " + txt + " ").indexOf(" TU, ") != -1 || (" " + txt + " ").indexOf(" ,TU ") != -1) {
 		dc.send("te estas jugando un baneo loko..");
-		disconectPlayer(msg.author);
 	}
 
 
@@ -114,13 +113,5 @@ bot.on("message", msg => {
 
 	}
 })
-
-function disconectPlayer(vcUser) {
-	let randomnumber = Math.floor(Math.random() * 9000 + 1000);
-
-	receivedMessage.guild.createChannel(`voice-kick-${randomnumber}`, "voice");
-	vcUser.setVoiceChannel(receivedMessage.guild.channels.find(r => r.name === `voice-kick-${randomnumber}`));
-	receivedMessage.guild.channels.find(r => r.name === `voice-${randomnumber}`).delete();
-}
 
 bot.login(process.env.token);
