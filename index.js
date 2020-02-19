@@ -38,55 +38,78 @@ bot.on("message", msg => {
 	else if (txt.indexOf("LOL") != -1) {
 		dc.send("tu, vendete ya la cuenta va");
 	}
-	else if (txt.indexOf("GILIPOLLAS") != -1) {
+	else if (txt.indexOf("GILIPOLLAS") != -1 || txt.indexOf("IMBECIL") != -1) {
 		dc.send("tu madre");
 	}
-
-
-
-	if (txt.startsWith(pre + "IMMASTER")) {
-		master = msg.author;
-		msg.author.send("You are now master.")
+	else if (txt.indexOf("LLOR") != -1) {
+		dc.send("te traigo pañuelos tio?");
+	}
+	else if ((" " + txt + " ").indexOf(" TU ") != -1) {
+		dc.send("te estas jugando un baneo loko..");
 	}
 
-	if (txt.startsWith(pre+"ADD")) {
-		var mention = msg.mentions.users.first();
-		if (mention == null) {
-			players.push(msg.content.substring(msg.content.indexOf("@")));
-			dc.send("Added a non-discord player");
-		} else {
-			players.push(mention);
-			players[players.length - 1].weapon = 0;//
-			players[players.length - 1].object = 0;//
-			players[players.length - 1].ally = 3;//
-			players[players.length - 1].dead = false;//
+
+	let args = txt.substring(pre.length).split(" ");
+	switch (args[0]) {
+
+		case "IMMASTER":
+			master = msg.author;
+			msg.author.send("You are now master.");
+		break;
+
+		case "ADDPLAYER":
+			if (!startedGame) {
+				var mention = msg.mentions.users.first();
+				if (mention == null) {
+					players.push(msg.content.substring(msg.content.indexOf("@")));
+					dc.send("Added a non-discord player");
+				} else {
+					players.push(mention);
+					players[players.length - 1].weapon = 0;//
+					players[players.length - 1].object = 0;//
+					players[players.length - 1].ally = 3;//
+					players[players.length - 1].dead = false;//
+
+					var embd = new Discord.RichEmbed()
+						.setColor("#ffff00")
+						.setTitle("JUGONES BATTLE ROYALE")
+						.setDescription("Added player" + players[players.length - 1])
+					dc.send(embd);
+				}
+			}
+		break;
+
+		case "ADDWEAPON":
+			if (msg.author == master) {
+				weapons.push(msg.content.substring(msg.content.indexOf(" ") - 1));
+
+				var embd = new Discord.RichEmbed()
+					.setColor("#ffff00")
+					.setTitle("JUGONES BATTLE ROYALE")
+					.setDescription("Added weapon " + weapons[weapons.length - 1][0] + " with level " + weapons[weapons.length - 1][1]);
+				dc.send(embd);
+			}
+		break;
+
+		case "SHOW":
+			var text = "";
+			for (var i = 0; i < players.length; i++) {
+				var wea = players[i].weapon;
+				var obj = players[i].object;
+				var all = players[i].ally;
+				var ded = players[i].dead;
+				text += i + " " + players[i] + "\n";
+			}
 
 			var embd = new Discord.RichEmbed()
 				.setColor("#ffff00")
 				.setTitle("JUGONES BATTLE ROYALE")
-				.setDescription("Added " + players[players.length - 1])
+				.setDescription(text)
+				.setFooter("Quedan " + " jugadores restantes");
 			dc.send(embd);
-		}
-	}
+		break;
 
-	if (txt.startsWith(pre + "SHOW")) {
-		var text = "";
-		for (var i = 0; i < players.length; i++) {
-			var wea = players[i].weapon;
-			var obj = players[i].object;
-			var all = players[i].ally;
-			var ded = players[i].dead;
-			text += i+" " + players[i] + "\n";
-		}
-
-		var embd = new Discord.RichEmbed()
-			.setColor("#ffff00")
-			.setTitle("JUGONES BATTLE ROYALE")
-			.setDescription(text)
-			.setFooter("Quedan "+" jugadores restantes");
-		dc.send(embd);
 	}
 })
-
 
 bot.login(process.env.token);
