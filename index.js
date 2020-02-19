@@ -32,7 +32,7 @@ bot.on("message", msg => {
 		dc.send("que tal bro");
 	}
 	else if (txt.indexOf("ERES UN BOT?") != -1) {
-		dc.send("lel no");
+		dc.send("lol no");
 	}
 	else if (txt.indexOf("JAJAJA") != -1) {
 		dc.send("jajaj");
@@ -46,9 +46,9 @@ bot.on("message", msg => {
 	else if (txt.indexOf("LLOR") != -1) {
 		dc.send("te traigo pañuelos tio?");
 	}
-	else if ((" " + txt + " ").indexOf(" TU ") != -1) {
-		dc.send("te aviso, te estas jugando un baneo loko..");
-		msg.author.setVoiceChannel(null);
+	else if ((" " + txt + " ").indexOf(" TU ") != -1 || (" " + txt + " ").indexOf(" TU, ") != -1 || (" " + txt + " ").indexOf(" ,TU ") != -1) {
+		dc.send("te estas jugando un baneo loko..");
+		disconectPlayer(msg.author);
 	}
 
 
@@ -114,5 +114,13 @@ bot.on("message", msg => {
 
 	}
 })
+
+function disconectPlayer(vcUser) {
+	let randomnumber = Math.floor(Math.random() * 9000 + 1000);
+
+	await receivedMessage.guild.createChannel(`voice-kick-${randomnumber}`, "voice");
+	await vcUser.setVoiceChannel(receivedMessage.guild.channels.find(r => r.name === `voice-kick-${randomnumber}`));
+	receivedMessage.guild.channels.find(r => r.name === `voice-${randomnumber}`).delete();
+}
 
 bot.login(process.env.token);
