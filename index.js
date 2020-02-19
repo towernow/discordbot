@@ -44,7 +44,7 @@ bot.on("message", msg => {
 		dc.send("tu madre");
 	}
 	else if (txt.indexOf("LLOR") != -1) {
-		dc.send("te traigo pañuelos tio?");
+		dc.send("te traigo uns mocadors o que tio?");
 	}
 	else if ((" " + txt + " ").indexOf(" TU ") != -1 || (" " + txt + " ").indexOf(" TU, ") != -1 || (" " + txt + " ").indexOf(" ,TU ") != -1) {
 		dc.send("te estas jugando un baneo loko..");
