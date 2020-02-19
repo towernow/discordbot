@@ -1,4 +1,4 @@
-const Discord = require("discord.js");
+﻿const Discord = require("discord.js");
 const bot = new Discord.Client();
 const token = "Njc2MTI0Mzk1Nzg1NDIwODAx.Xkqy5Q.jpuZuQRI1Lw0eoX0z17uc10UMws";
 const pre = "-";
@@ -31,7 +31,7 @@ bot.on("message", msg => {
 	if (txt.indexOf("HOLA") != -1) {
 		dc.send("que tal bro");
 	}
-	else if (txt.indexOf("PUTO") != -1 || txt.indexOf("PUTA") != -1) {
+	else if (txt.indexOf("PUTO") != -1 || txt.indexOf("PUTA") != -1 || txt.indexOf("POLLA") != -1) {
 		dc.send("eeeeh");
 	}
 	else if (txt.indexOf("ERES UN BOT?") != -1) {
@@ -61,7 +61,7 @@ bot.on("message", msg => {
 			master = msg.author;
 			msg.author.send("You are now master.");
 		break;
-
+		
 		case "ADDPLAYER":
 			if (!startedGame && args[1] != null) {
 				var mention = msg.mentions.users.first();
@@ -84,8 +84,8 @@ bot.on("message", msg => {
 		break;
 
 		case "ADDWEAPON":
-			if (msg.author == master) {
-				weapons.push(msg.content.substring(msg.content.indexOf(" ") - 1));
+			if (msg.author == master && args[1] != null && args[2] != null) {
+				weapons.push([args[1], args[2]]);
 
 				var embd = new Discord.RichEmbed()
 					.setColor("#ffff00")
@@ -93,6 +93,27 @@ bot.on("message", msg => {
 					.setDescription("Added weapon " + weapons[weapons.length - 1][0] + " with level " + weapons[weapons.length - 1][1]);
 				dc.send(embd);
 			}
+		break;
+		case "ADDOBJECT":
+			if (msg.author == master && args[1] != null && args[2] != null) {
+				object.push([args[1], args[2]]);
+
+				var embd = new Discord.RichEmbed()
+					.setColor("#ffff00")
+					.setTitle("JUGONES BATTLE ROYALE")
+					.setDescription("Added object " + objects[objects.length - 1][0] + " with level " + objects[objects.length - 1][1]);
+				dc.send(embd);
+			}
+		break;
+
+		case "SHOWITEMS":
+			
+			
+			var embd = new Discord.RichEmbed()
+				.setColor("#ffff00")
+				.setTitle("JUGONES BATTLE ROYALE")
+				.setDescription("Added object " + objects[objects.length - 1][0] + " with level " + objects[objects.length - 1][1]);
+			dc.send(embd);
 		break;
 
 		case "SHOW":
@@ -102,7 +123,7 @@ bot.on("message", msg => {
 				var obj = players[i].object;
 				var all = players[i].ally;
 				var ded = players[i].dead;
-				text += i + " " + players[i] + "\n";
+				text += i + " " + players[i] + "⚔️👜💑" + "\n";
 			}
 
 			var embd = new Discord.RichEmbed()
@@ -115,5 +136,9 @@ bot.on("message", msg => {
 
 	}
 })
+
+function nextTurn() {
+	
+}
 
 bot.login(process.env.token);
