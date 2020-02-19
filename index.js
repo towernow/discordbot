@@ -25,6 +25,8 @@ bot.on("message", msg => {
 	var dc = msg.channel; //default channel
 	var txt = msg.content.toUpperCase();
 
+	if (msg.author == bot)
+		return;
 
 	if (txt.indexOf("HOLA") != -1) {
 		dc.send("que tal bro");
