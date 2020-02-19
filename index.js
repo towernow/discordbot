@@ -118,7 +118,7 @@ bot.on("message", msg => {
 
 			var jgRestantes = 0;
 			for (var i = 0; i < players.length; i++) {
-				if (players[i].dead)
+				if (!players[i].dead)
 					jgRestantes++;
 			}
 
