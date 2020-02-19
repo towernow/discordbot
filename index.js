@@ -1,7 +1,6 @@
 ﻿const Discord = require("discord.js");
 const bot = new Discord.Client();
 const token = "Njc2MTI0Mzk1Nzg1NDIwODAx.Xkqy5Q.jpuZuQRI1Lw0eoX0z17uc10UMws";
-const ms = require("ms");
 const pre = "-";
 var master, dc, startedGame = false;
 
