@@ -2,7 +2,7 @@
 const bot = new Discord.Client();
 const token = "Njc2MTI0Mzk1Nzg1NDIwODAx.Xkqy5Q.jpuZuQRI1Lw0eoX0z17uc10UMws";
 const pre = "-", everyMSeconds = 10*1000; //Time ms (86400*1000)/3(un dia);
-var master, dc, startedGame = false, turnoN = 0;
+var master, dc, startedGame = false, turnoN = 0, intervalMain;
 
 bot.on("ready", () => {
 	console.log("BOT IS ONLINE!");
@@ -119,7 +119,7 @@ bot.on("message", msg => {
 				dc.send(embd);
 
 				if (!startedGame) {
-					nextTurn();
+					intervalMain = setInterval(nextTurn(), everyMSeconds);
 					startedGame = true;
 				}
 			}
@@ -225,7 +225,6 @@ function nextTurn() {
 	dc.send(embd);
 
 	turnoN += 1;
-	setTimeout(nextTurn(), everyMSeconds);
 }
 
 function returnStats(pid) {
