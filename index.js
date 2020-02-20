@@ -1,7 +1,7 @@
 ﻿const Discord = require("discord.js");
 const bot = new Discord.Client();
 const token = "Njc2MTI0Mzk1Nzg1NDIwODAx.Xkqy5Q.jpuZuQRI1Lw0eoX0z17uc10UMws";
-const pre = "-";
+const pre = "-", everySeconds = 10; //Time ms 86400/3(un dia);
 var master, dc, startedGame = false, turnoN = 0;
 
 bot.on("ready", () => {
@@ -14,6 +14,8 @@ var players = [];
 var weapons = [
 	["Puños", 0],
 	["Bandicoondon", 10],
+	["Penis", 7],
+	["Vagina", 5],
 	["T", 9]
 ];
 
@@ -117,7 +119,7 @@ bot.on("message", msg => {
 				dc.send(embd);
 
 				startedGame = true;
-				nextTurn(10); //Time ms 86400/3(un dia)
+				nextTurn();
 			}
 		break;
 
@@ -158,11 +160,11 @@ bot.on("message", msg => {
 	}
 })
 
-function nextTurn(everySeconds) {
+function nextTurn() {
 	dc.send(returnStats());//debug
 
 	var txt = "";
-	var p1 = Math.floor(Math.random() * (players.length - 1));
+	var p1 = Math.floor(Math.random() * players.length);
 	console.log(p1);//debug
 
 	var embd = new Discord.RichEmbed();
@@ -176,8 +178,7 @@ function nextTurn(everySeconds) {
 		txt += "MEDIANOCHE";
 	txt += " DEL DÍA " + Math.floor(turnoN / 3) + "\n--------------------------------------\n\n";
 
-	var rndMove = Math.floor(Math.random * 2);
-	rndMove = 0;///debug
+	var rndMove = Math.floor(Math.random * 2); rndMove = 0;///debug sempre weapon
 	if (rndMove == 0) { //WEAPON//////////////////////////////////////////////////////////////////////////
 		var weap = Math.floor(Math.random() * (weapons.length - 1)) + 1;
 
@@ -222,7 +223,7 @@ function nextTurn(everySeconds) {
 	dc.send(embd);
 
 	turnoN += 1;
-	setTimeout(function () { nextTurn(everySeconds); }, everySeconds);
+	setTimeout(nextTurn(), everySeconds);
 }
 
 function returnStats(pid) {
