@@ -232,20 +232,88 @@ function nextTurn(rndMove) {
 		} while (players[p2].dead);
 
 		if (p1 == p2) { //suicidio
-			var probability = Math.floor(Math.random() * 4);
+			var probability = Math.floor(Math.random() * 5);
 			if (probability == 0) {
 				txt += players[p1] + " se ha suicidado";
 				players[p1].dead = true;
 				if (players[p1].ally != null)
 					players[players[p1].ally].ally = null;
+			} else if (probability == 1) {
+				txt += players[p1] + " se ha immolado junto a " + players[p2];
+				players[p1].dead = true;
+				players[p2].dead = true;
+				if (players[p1].ally != null)
+					players[players[p1].ally].ally = null;
+				if (players[p2].ally != null)
+					players[players[p2].ally].ally = null;
 			} else {
 				nextTurn(2);
 				return;
 			}
-		} else if () { //traicion aliado
+		} else if (players[p1].ally == p2) { //traicion aliado
+			txt += players[p1] + " ha asesinado por la espalda a " + players[p2];
+			players[p2].dead = true;
+			players[p1].ally = null;
+			players[p2].ally = null;
 
-		} else if () { //kill ajena
+			if (weapons[players[p2].weapon1][1] > weapons[players[p1].weapon1][1]) {
+				players[p1].weapon1 = players[p2].weapon1;
+				players[p2].weapon1 = 0;
+				txt += " y se ha llevado su **" + weapons[players[p1].weapon2][0] + "**";
+			}
+			else if (weapons[players[p2].weapon1][1] > weapons[players[p1].weapon2][1]) {
+				players[p1].weapon2 = players[p2].weapon2;
+				players[p2].weapon1 = 0;
+				txt += " y se ha llevado su **" + weapons[players[p1].weapon2][0] + "**";
+			}
+			else if (weapons[players[p2].weapon2][1] > weapons[players[p1].weapon1][1]) {
+				players[p1].weapon1 = players[p2].weapon1;
+				players[p2].weapon2 = 0;
+				txt += " y se ha llevado su **" + weapons[players[p1].weapon2][0] + "**";
+			}
+			else if (weapons[players[p2].weapon2][1] > weapons[players[p1].weapon2][1]) {
+				players[p1].weapon2 = players[p2].weapon2;
+				players[p2].weapon2 = 0;
+				txt += " y se ha llevado su **" + weapons[players[p1].weapon2][0] + "**";
+			}
+		} else { //pelea
+			var pow1 = weapons[players[p1].weapon1][1] + weapons[players[p1].weapon2][1];
+			var pow2 = weapons[players[p2].weapon1][1] + weapons[players[p2].weapon2][1];
+			var rndPow1 = Math.floor(Math.random() * (pow1+1));
+			var rndPow2 = Math.floor(Math.random() * (pow2+1));
 
+			if (rndPow1 >= rndPow2) {
+				txt += players[p1] + " ha asesinado con **" + weapons[players[p1].weapon1][0] + "** y **" + weapons[players[p1].weapon2][0] + "** a " + players[p2];
+				players[p2].dead = true;
+				if (players[p2].ally != null)
+					players[players[p2].ally].ally = null;
+			} else {
+				txt += players[p2] + " ha asesinado con **" + weapons[players[p2].weapon1][0] + "** y **" + weapons[players[p2].weapon2][0] + "** a " + players[p1];
+				players[p1].dead = true;
+				if (players[p1].ally != null)
+					players[players[p1].ally].ally = null;
+			}
+
+			if (weapons[players[p2].weapon1][1] > weapons[players[p1].weapon1][1]) {
+				players[p1].weapon1 = players[p2].weapon1;
+				players[p2].weapon1 = 0;
+				txt += " y se ha llevado su **" + weapons[players[p1].weapon2][0] + "**";
+			}
+			else if (weapons[players[p2].weapon1][1] > weapons[players[p1].weapon2][1]) {
+				players[p1].weapon2 = players[p2].weapon2;
+				players[p2].weapon1 = 0;
+				txt += " y se ha llevado su **" + weapons[players[p1].weapon2][0] + "**";
+			}
+			else if (weapons[players[p2].weapon2][1] > weapons[players[p1].weapon1][1]) {
+				players[p1].weapon1 = players[p2].weapon1;
+				players[p2].weapon2 = 0;
+				txt += " y se ha llevado su **" + weapons[players[p1].weapon2][0] + "**";
+			}
+			else if (weapons[players[p2].weapon2][1] > weapons[players[p1].weapon2][1]) {
+				players[p1].weapon2 = players[p2].weapon2;
+				players[p2].weapon2 = 0;
+				txt += " y se ha llevado su **" + weapons[players[p1].weapon2][0] + "**";
+			}
 		}
 
 		embd.setColor("#ff0000");
