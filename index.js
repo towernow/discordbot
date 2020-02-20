@@ -208,14 +208,18 @@ function nextTurn(everySeconds) {
 
 function returnStats(pid) {
 	dc.send(pid);//debug
-	return (players[pid].dead != null ? (players[pid].dead ? "💀 " : "⭐ ") : "-")
-		+ players[pid]
-		+ " :     ⚔️"
-		+ (players[pid].weapon1 != null ? weapons[players[pid].weapon1][0] : "-")
-		+ "  ⚔️"
-		+ (players[pid].weapon2 != null ? weapons[players[pid].weapon2][0] : "-")
-		+ "  🧑‍🤝‍🧑"
-		+ (players[pid].ally != null ? players[pid].ally : "-");
+	if (players[pid] != null) {
+		return (players[pid].dead != null ? (players[pid].dead ? "💀 " : "⭐ ") : "-")
+			+ players[pid]
+			+ " :     ⚔️"
+			+ (players[pid].weapon1 != null ? weapons[players[pid].weapon1][0] : "-")
+			+ "  ⚔️"
+			+ (players[pid].weapon2 != null ? weapons[players[pid].weapon2][0] : "-")
+			+ "  🧑‍🤝‍🧑"
+			+ (players[pid].ally != null ? players[pid].ally : "-");
+	} else {
+		return "ERROR";
+	}
 } 
 
 bot.login(process.env.token);
