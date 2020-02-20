@@ -178,7 +178,7 @@ function nextTurn() {
 		txt += "MEDIANOCHE";
 	txt += " DEL DÍA " + Math.floor(turnoN / 3) + "\n--------------------------------------\n\n";
 
-	var rndMove = Math.floor(Math.random * 2);
+	var rndMove = Math.floor(Math.random() * 2);
 	if (rndMove == 0) { //WEAPON//////////////////////////////////////////////////////////////////////////
 		var weap = Math.floor(Math.random() * (weapons.length - 1)) + 1;
 
@@ -210,7 +210,7 @@ function nextTurn() {
 			players[p1].ally = null;
 			players[p2].ally = null;
 			txt += players[p1] + " ha abandonado a " + players[p2];
-		} else if (players[p1].ally == null && players[p2].ally == null) { //Si no tienen ninguno aliado se juntan
+		} else if (players[p1].ally == null && players[p2].ally == null && players[p2].dead == false) { //Si no tienen ninguno aliado se juntan
 			players[p1].ally = p2;
 			players[p2].ally = p1;
 			txt += players[p1] + " se ha juntado con " + players[p2];
