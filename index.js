@@ -82,7 +82,7 @@ bot.on("message", msg => {
 
 		case "REMOVEPLAYER":
 			if (msg.author == master && !startedGame && args[1] != null) {
-				var idx = array.indexOf(args[1]);
+				var idx = players.indexOf(args[1]);
 
 				var embd = new Discord.RichEmbed()
 					.setColor("#ffff00")
@@ -91,7 +91,7 @@ bot.on("message", msg => {
 				dc.send(embd);
 
 				if (idx > -1) {
-					array.splice(idx, 1);
+					players.splice(idx, 1);
 				}
 			}
 		break;
@@ -225,7 +225,6 @@ function nextTurn(everySeconds) {
 }
 
 function returnStats(pid) {
-	dc.send(pid);//debug
 	if (players[pid] != null) {
 		return (players[pid].dead != null ? (players[pid].dead ? "💀 " : "⭐ ") : "-")
 			+ players[pid]
