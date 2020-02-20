@@ -153,7 +153,7 @@ function nextTurn(everySeconds) {
 		txt += "TARDE";
 	else if (turnoN % 3 == 2)
 		txt += "MEDIANOCHE";
-	txt += " DEL DÍA " + Math.floor(turnoN / 3) + "\n--------------------------\n\n";
+	txt += " DEL DÍA " + Math.floor(turnoN / 3) + "\n--------------------------------------\n\n";
 
 	var rndMove = Math.floor(Math.random * 2);
 	if (rndMove == 0) { //WEAPON//////////////////////////////////////////////////////////////////////////
