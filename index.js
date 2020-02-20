@@ -63,12 +63,13 @@ bot.on("message", msg => {
 
 		case "ADDPLAYER":
 			if (msg.author == master && !startedGame && args[1] != null) {
-				//var mention = msg.mentions.users.first();
-				//if (mention == null) {
-					players.push(args[1]);
-				//} else {
-				//	players.push(mention);
-				//}
+				var mention = msg.mentions.users.first();
+				if (mention == null) {
+					var strObj = new String(args[1]);
+					players.push(strObj);
+				} else {
+					players.push(mention);
+				}
 
 				players[players.length - 1].dead = false;
 				players[players.length - 1].weapon1 = 0;
