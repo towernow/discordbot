@@ -91,7 +91,7 @@ bot.on("message", msg => {
 		case "START":
 			if (msg.author == master) {
 				startedGame = true;
-				nextTurn(60*1000); //Time ms 86400/3(un dia)
+				nextTurn(5); //Time ms 86400/3(un dia)
 
 				var embd = new Discord.RichEmbed()
 					.setColor("#ffff00")
@@ -156,7 +156,7 @@ function nextTurn(everySeconds) {
 	txt += " DEL DÍA " + Math.floor(turnoN / 3) + "\n--------------------------\n\n";
 
 	var rndMove = Math.floor(Math.random * 2);
-	if (rndMove == 0) { //WEAPON
+	if (rndMove == 0) { //WEAPON//////////////////////////////////////////////////////////////////////////
 		var weap = Math.floor(Math.random * (weapons - 1));
 
 		txt += returnStats(p1) + "\n HA ENCONTRADO " + weapons[weap][0];
@@ -176,11 +176,11 @@ function nextTurn(everySeconds) {
 		}
 		embd.setColor("#0000ff");
 	}
-	else if (rndMove == 1) { //ALLY
+	else if (rndMove == 1) { //ALLY//////////////////////////////////////////////////////////////////////////
 
 		embd.setColor("#7fff00");
 	}
-	else if (rndMove == 2) { //KILL
+	else if (rndMove == 2) { //KILL//////////////////////////////////////////////////////////////////////////
 
 		embd.setColor("#ff0000");
 	}
