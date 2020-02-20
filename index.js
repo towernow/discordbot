@@ -68,6 +68,8 @@ bot.on("message", msg => {
 					players.push(mention);
 				}
 
+				players[players.length - 1].dead = false;
+
 				var embd = new Discord.RichEmbed()
 					.setColor("#ffff00")
 					.setTitle("🌟JUGONES BATTLE ROYALE🌟")
@@ -210,7 +212,7 @@ function returnStats(pid) {
 		+ "  ⚔️"
 		+ (players[pid].weapon2 != null ? weapons[players[pid].weapon2][0] : "-")
 		+ "  🧑‍🤝‍🧑"
-		+ players[pid].ally;
+		+ (players[pid].ally != null ? players[pid].ally : "-");
 } 
 
 bot.login(process.env.token);
