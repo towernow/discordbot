@@ -6,6 +6,7 @@ var master, dc, startedGame = false, turnoN = 0, intervalMain;
 
 bot.on("ready", () => {
 	console.log("BOT IS ONLINE!");
+	bot.user.setGame("Press -helpbr");
 })
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -58,8 +59,8 @@ bot.on("message", msg => {
 		break;
 
 		case "HELPBR":
-			var txt = "HELP:\n\n";
-			txt += "-help\n";
+			var txt = "**Help:**\n";
+			txt += "-helpbr\n";
 			txt += "-show\n";
 			txt += "-immaster\n";
 			txt += "-addplayer [@Mention] 👑\n";
