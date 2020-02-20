@@ -158,7 +158,7 @@ bot.on("message", msg => {
 				.setColor("#ffff00")
 				.setTitle("🌟JUGONES BATTLE ROYALE🌟")
 				.setDescription(text)
-				.setFooter("Quedan " + jgRestantes + " jugadores restantes");
+				.setFooter("Quedan " + jgRestantes + " jugadores restantes.");
 			dc.send(embd);
 		break;
 
@@ -167,8 +167,10 @@ bot.on("message", msg => {
 
 function nextTurn(rndMove) {
 	var txt = "";
-	var p1 = Math.floor(Math.random() * players.length);
-	console.log(p1);//debug
+	var p1;
+	do {
+		p1 = Math.floor(Math.random() * players.length);
+	} while (players[p1].dead);
 
 	var embd = new Discord.RichEmbed();
 	embd.setTitle("🌟JUGONES BATTLE ROYALE🌟")
@@ -227,8 +229,6 @@ function nextTurn(rndMove) {
 		do {
 			p2 = Math.floor(Math.random() * players.length);
 		} while (p1 == p2);
-
-		console.log(p1 + " loves " + p2);
 
 		if (players[p1].ally == p2) { //Si coincide nuevo aliado con actual aliado -> abandono
 			players[p1].ally = null;
@@ -346,11 +346,35 @@ function nextTurn(rndMove) {
 		if (!players[i].dead)
 			jgRestantes++;
 	}
-	embd.setFooter("Quedan " + jgRestantes + " jugadores restantes" + "\nIntroduce -show para ver el estado actual de la partida");
-	embd.setDescription(txt);
+	embd.setFooter("Quedan " + jgRestantes + " jugadores restantes." + "\nIntroduce -show para ver el estado actual de la partida.");
+	embd.setDescription(txt + ".");
 	dc.send(embd);
+	checkWin();
 
 	turnoN += 1;
+}
+
+function checkWin() {
+	var jgRestantes = 0;
+	for (var i = 0; i < players.length; i++) {
+		if (!players[i].dead)
+			jgRestantes++;
+	}
+
+	if (jgRestantes <= 1) {
+		var winner; 
+		for (var i = 0; i < players.length; i++) {
+			if (!players[i].dead)
+				winner = i;
+		}
+
+		var embd = new Discord.RichEmbed()
+			.setColor("#ffff00")
+			.setTitle("🎇JUGONES BATTLE ROYALE🎇")
+			.setDescription("VICTORIA ROYALE\nEL VENCEDOR ES " + players[winner])
+			.setFooter("Queda " + jgRestantes + " jugador restante.");
+		dc.send(embd);
+	}
 }
 
 function returnStats(pid) {
