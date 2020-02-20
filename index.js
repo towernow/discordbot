@@ -184,8 +184,8 @@ function nextTurn(rndMove) {
 	txt += " DEL DÍA " + Math.floor(turnoN / 3) + "\n--------------------------------------\n\n";
 
 	if(rndMove == null)
-		rndMove = Math.floor(Math.random() * 3);
-	if (rndMove == 0) { //WEAPON//////////////////////////////////////////////////////////////////////////
+		rndMove = Math.floor(Math.random() * 5);
+	if (rndMove == 1 || rndMove == 2) { //WEAPON//////////////////////////////////////////////////////////////////////////
 		var weap = Math.floor(Math.random() * (weapons.length - 1)) + 1;
 
 		if (weap == players[p1].weapon1) { //Pierde objetos
@@ -224,7 +224,7 @@ function nextTurn(rndMove) {
 		}
 		embd.setColor("#0000ff");
 	}
-	else if (rndMove == 1) { //ALLY//////////////////////////////////////////////////////////////////////////
+	else if (rndMove == 3 || rndMove == 4) { //ALLY//////////////////////////////////////////////////////////////////////////
 		var p2;
 		do {
 			p2 = Math.floor(Math.random() * players.length);
@@ -245,7 +245,7 @@ function nextTurn(rndMove) {
 
 		embd.setColor("#7fff00");
 	}
-	else if (rndMove == 2) { //KILL//////////////////////////////////////////////////////////////////////////
+	else if (rndMove == 0) { //KILL//////////////////////////////////////////////////////////////////////////
 		var p2;
 		do {
 			p2 = Math.floor(Math.random() * players.length);
@@ -267,7 +267,7 @@ function nextTurn(rndMove) {
 				if (players[p2].ally != null)
 					players[players[p2].ally].ally = null;
 			} else {
-				nextTurn(2);
+				nextTurn(0);
 				return;
 			}
 		} else if (players[p1].ally == p2) { //traicion aliado
