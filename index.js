@@ -163,7 +163,7 @@ bot.on("message", msg => {
 	}
 })
 
-function nextTurn() {
+function nextTurn(rndMove) {
 	var txt = "";
 	var p1 = Math.floor(Math.random() * players.length);
 	console.log(p1);//debug
@@ -179,7 +179,8 @@ function nextTurn() {
 		txt += "MEDIANOCHE";
 	txt += " DEL DÍA " + Math.floor(turnoN / 3) + "\n--------------------------------------\n\n";
 
-	var rndMove = Math.floor(Math.random() * 2);
+	if(rndMove == null)
+		rndMove = Math.floor(Math.random() * 2);
 	if (rndMove == 0) { //WEAPON//////////////////////////////////////////////////////////////////////////
 		var weap = Math.floor(Math.random() * (weapons.length - 1)) + 1;
 
@@ -198,7 +199,7 @@ function nextTurn() {
 				players[p1].weapon2 = weap;
 			}
 		}
-
+		//encontrar biblia revivir muerto
 		embd.setColor("#0000ff");
 	}
 	else if (rndMove == 1) { //ALLY//////////////////////////////////////////////////////////////////////////
@@ -225,7 +226,27 @@ function nextTurn() {
 		embd.setColor("#7fff00");
 	}
 	else if (rndMove == 2) { //KILL//////////////////////////////////////////////////////////////////////////
-		var p2 = Math.floor(Math.random() * players.length);
+		var p2;
+		do {
+			p2 = Math.floor(Math.random() * players.length);
+		} while (players[p2].dead);
+
+		if (p1 == p2) { //suicidio
+			var probability = Math.floor(Math.random() * 4);
+			if (probability == 0) {
+				txt += players[p1] + " se ha suicidado";
+				players[p1].dead = true;
+				if (players[p1].ally != null)
+					players[players[p1].ally].ally = null;
+			} else {
+				nextTurn(2);
+				return;
+			}
+		} else if () { //traicion aliado
+
+		} else if () { //kill ajena
+
+		}
 
 		embd.setColor("#ff0000");
 	}
@@ -253,7 +274,7 @@ function returnStats(pid) {
 			+ "  ⚔️"
 			+ (players[pid].weapon2 != null ? weapons[players[pid].weapon2][0] : "-")
 			+ "  🧑‍🤝‍🧑"
-			+ (players[pid].ally != null ? players[pid].ally : "-");
+			+ (players[pid].ally != null ? players[players[pid].ally] : "-");
 	} else {
 		return "ERROR PLAYER" + pid;
 	}
