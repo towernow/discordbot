@@ -90,14 +90,14 @@ bot.on("message", msg => {
 
 		case "START":
 			if (msg.author == master) {
-				startedGame = true;
-				nextTurn(5); //Time ms 86400/3(un dia)
-
 				var embd = new Discord.RichEmbed()
 					.setColor("#ffff00")
 					.setTitle("🌟JUGONES BATTLE ROYALE🌟")
 					.setDescription("¡DA COMIENZO EL JUGONES BATTLE ROYALE!");
 				dc.send(embd);
+
+				startedGame = true;
+				nextTurn(10); //Time ms 86400/3(un dia)
 			}
 		break;
 
@@ -115,7 +115,11 @@ bot.on("message", msg => {
 		break;
 
 		case "SHOW":
-			var text = returnStats();
+			var text = "";
+
+			for (var i = 0; i < players.length; i++) {
+				text += returnStats(i) + "\n";
+			}
 
 			var jgRestantes = 0;
 			for (var i = 0; i < players.length; i++) {
@@ -199,16 +203,7 @@ function nextTurn(everySeconds) {
 }
 
 function returnStats(pid) {
-	var txt = "";
-	if (pid == null) {
-		for (var i = 0; i < players.length; i++) {
-			txt += (players[i].dead ? "💀 " : "⭐ ") + players[i] + " :     ⚔️" + weapons[players[i].weapon1][0] + "  ⚔️" + weapons[players[i].weapon2][0] + "  🧑‍🤝‍🧑" + players[i].ally + "\n";
-		}
-	} else {
-		txt += (players[pid].dead ? "💀 " : "⭐ ") + players[pid] + " :     ⚔️" + weapons[players[pid].weapon1][0] + "  ⚔️" + weapons[players[pid].weapon2][0] + "  🧑‍🤝‍🧑" + players[pid].ally;
-	}
-
-	return txt;
+	return (players[pid].dead ? "💀 " : "⭐ ") + players[pid] + " :     ⚔️" + weapons[players[pid].weapon1][0] + "  ⚔️" + weapons[players[pid].weapon2][0] + "  🧑‍🤝‍🧑" + players[pid].ally;
 } 
 
 bot.login(process.env.token);
