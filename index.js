@@ -118,8 +118,10 @@ bot.on("message", msg => {
 					.setDescription("¡DA COMIENZO EL JUGONES BATTLE ROYALE!");
 				dc.send(embd);
 
-				startedGame = true;
-				nextTurn();
+				if (!startedGame) {
+					nextTurn();
+					startedGame = true;
+				}
 			}
 		break;
 
