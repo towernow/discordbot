@@ -1,7 +1,7 @@
 ﻿const Discord = require("discord.js");
 const bot = new Discord.Client();
 const token = "Njc2MTI0Mzk1Nzg1NDIwODAx.Xkqy5Q.jpuZuQRI1Lw0eoX0z17uc10UMws";
-const pre = "-", everySeconds = 10*1000; //Time ms (86400*1000)/3(un dia);
+const pre = "-", everyMSeconds = 10*1000; //Time ms (86400*1000)/3(un dia);
 var master, dc, startedGame = false, turnoN = 0;
 
 bot.on("ready", () => {
@@ -223,7 +223,7 @@ function nextTurn() {
 	dc.send(embd);
 
 	turnoN += 1;
-	setTimeout(nextTurn(), everySeconds);
+	setTimeout(nextTurn(), everyMSeconds);
 }
 
 function returnStats(pid) {
