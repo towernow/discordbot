@@ -203,7 +203,14 @@ function nextTurn(everySeconds) {
 }
 
 function returnStats(pid) {
-	return (players[pid].dead ? "💀 " : "⭐ ") + players[pid] + " :     ⚔️" + weapons[players[pid].weapon1][0] + "  ⚔️" + weapons[players[pid].weapon2][0] + "  🧑‍🤝‍🧑" + players[pid].ally;
+	return (players[pid].dead ? "💀 " : "⭐ ")
+		+ players[pid]
+		+ " :     ⚔️"
+		+ (players[pid].weapon1 != null ? weapons[players[pid].weapon1][0] : "-")
+		+ "  ⚔️"
+		+ (players[pid].weapon2 != null ? weapons[players[pid].weapon2][0] : "-")
+		+ "  🧑‍🤝‍🧑"
+		+ players[pid].ally;
 } 
 
 bot.login(process.env.token);
