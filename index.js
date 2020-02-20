@@ -162,7 +162,7 @@ function nextTurn(everySeconds) {
 	dc.send(returnStats());//debug
 
 	var txt = "";
-	var p1 = Math.floor(Math.random * (players.length - 1));
+	var p1 = Math.floor(Math.random() * (players.length - 1));
 	console.log(p1);//debug
 
 	var embd = new Discord.RichEmbed();
