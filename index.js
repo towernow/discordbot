@@ -1,7 +1,7 @@
 ﻿const Discord = require("discord.js");
 const bot = new Discord.Client();
 const token = "Njc2MTI0Mzk1Nzg1NDIwODAx.Xkqy5Q.jpuZuQRI1Lw0eoX0z17uc10UMws";
-const pre = "-", everyMSeconds = 10*1000; //Time ms (86400*1000)/3(un dia);
+const pre = "-", everyMSeconds = 5*1000; //Time ms (86400*1000)/3(un dia);
 var master, dc, startedGame = false, turnoN = 0, intervalMain;
 
 bot.on("ready", () => {
@@ -16,7 +16,7 @@ var weapons = [
 	["Bandicoondon", 10],
 	["Penis", 7],
 	["Vagina", 5],
-	["T", 9]
+	["T pose", 9]
 ];
 
 
@@ -163,8 +163,6 @@ bot.on("message", msg => {
 })
 
 function nextTurn() {
-	dc.send(returnStats());//debug
-
 	var txt = "";
 	var p1 = Math.floor(Math.random() * players.length);
 	console.log(p1);//debug
@@ -180,11 +178,11 @@ function nextTurn() {
 		txt += "MEDIANOCHE";
 	txt += " DEL DÍA " + Math.floor(turnoN / 3) + "\n--------------------------------------\n\n";
 
-	var rndMove = Math.floor(Math.random * 2); rndMove = 0;///debug sempre weapon
+	var rndMove = Math.floor(Math.random * 2);
 	if (rndMove == 0) { //WEAPON//////////////////////////////////////////////////////////////////////////
 		var weap = Math.floor(Math.random() * (weapons.length - 1)) + 1;
 
-		txt += returnStats(p1) + "\n HA ENCONTRADO " + weapons[weap][0];
+		txt += players[p1] + "\n ha encontrado **" + weapons[weap][0] + "**";
 
 		if (players[p1].weapon1 == 0) {
 			players[p1].weapon1 = weap;
@@ -192,28 +190,44 @@ function nextTurn() {
 			players[p1].weapon2 = weap;
 		} else {
 			if (weapons[players[p1].weapon1][1] < weapons[players[p1].weapon2][1]) { //Si el poder del arma 1 es menor que el de arma 2
-				txt += " Y HA TIRADO " + weapons[players[p1].weapon1][0];
+				txt += " y ha lanzado **" + weapons[players[p1].weapon1][0] + "**";
 				players[p1].weapon1 = weap;
 			} else {
-				txt += " Y HA TIRADO " + weapons[players[p1].weapon2][0];
+				txt += " y ha lanzado **" + weapons[players[p1].weapon2][0] + "**";
 				players[p1].weapon2 = weap;
 			}
 		}
+
 		embd.setColor("#0000ff");
 	}
 	else if (rndMove == 1) { //ALLY//////////////////////////////////////////////////////////////////////////
 		var p2;
 		do {
-			p2 = Math.floor(Math.random * (players.length - 1));
+			p2 = Math.floor(Math.random * players.length);
 		} while (p1 == p2);
+
+		if (players[p1].ally == p2) { //Si coincide nuevo aliado con actual aliado -> abandono
+			players[p1].ally = null;
+			players[p2].ally = null;
+			txt += players[p1] + " ha abandonado a " + players[p2];
+		} else if (players[p1].ally == null && players[p2].ally == null) { //Si no tienen ninguno aliado se juntan
+			players[p1].ally = p2;
+			players[p2].ally = p1;
+			txt += players[p1] + " se ha juntado con " + players[p2];
+		} else {
+			nextTurn();
+			return;
+		}
 
 		embd.setColor("#7fff00");
 	}
 	else if (rndMove == 2) { //KILL//////////////////////////////////////////////////////////////////////////
-		var p2 = Math.floor(Math.random * (players.length - 1));
+		var p2 = Math.floor(Math.random * players.length);
 
 		embd.setColor("#ff0000");
 	}
+
+	txt += "\n\n" + returnStats(p1);
 
 	var jgRestantes = 0;
 	for (var i = 0; i < players.length; i++) {
@@ -238,7 +252,7 @@ function returnStats(pid) {
 			+ "  🧑‍🤝‍🧑"
 			+ (players[pid].ally != null ? players[pid].ally : "-");
 	} else {
-		return "ERROR " + pid;
+		return "ERROR PLAYER" + pid;
 	}
 } 
 
