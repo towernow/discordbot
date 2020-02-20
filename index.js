@@ -119,12 +119,12 @@ bot.on("message", msg => {
 		case "SHOW":
 			var text = "";
 
-			for (var i = 0; i < players.length-1; i++) {
+			for (var i = 0; i < players.length; i++) {
 				text += returnStats(i) + "\n";
 			}
 
 			var jgRestantes = 0;
-			for (var i = 0; i < players.length-1; i++) {
+			for (var i = 0; i < players.length; i++) {
 				if (!players[i].dead)
 					jgRestantes++;
 			}
@@ -194,7 +194,7 @@ function nextTurn(everySeconds) {
 	}
 
 	var jgRestantes = 0;
-	for (var i = 0; i < players.length-1; i++) {
+	for (var i = 0; i < players.length; i++) {
 		if (!players[i].dead)
 			jgRestantes++;
 	}
