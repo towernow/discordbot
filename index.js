@@ -217,7 +217,7 @@ function nextTurn(everySeconds) {
 		if (!players[i].dead)
 			jgRestantes++;
 	}
-	embd.setFooter("Quedan " + jgRestantes + " jugadores restantes" + "\n introduce -show para ver el estado actual de la partida");
+	embd.setFooter("Quedan " + jgRestantes + " jugadores restantes" + "\nIntroduce -show para ver el estado actual de la partida");
 	embd.setDescription(txt);
 	dc.send(embd);
 
