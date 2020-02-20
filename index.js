@@ -12,7 +12,7 @@ bot.on("ready", () => {
 
 var players = [];
 var weapons = [
-	["Biblia satánica", 0],
+	["Puños", 0],
 	["Bandicoondon", 10],
 	["T", 9]
 ];
@@ -58,7 +58,7 @@ bot.on("message", msg => {
 			master = msg.author;
 			msg.author.send("You are now master.");
 		break;
-		
+
 		case "ADDPLAYER":
 			if (msg.author == master && !startedGame && args[1] != null) {
 				var mention = msg.mentions.users.first();
@@ -69,12 +69,30 @@ bot.on("message", msg => {
 				}
 
 				players[players.length - 1].dead = false;
+				players[players.length - 1].weapon1 = 1;
+				players[players.length - 1].weapon2 = 1;
 
 				var embd = new Discord.RichEmbed()
 					.setColor("#ffff00")
 					.setTitle("🌟JUGONES BATTLE ROYALE🌟")
 					.setDescription("Added player " + players[players.length - 1])
 				dc.send(embd);
+			}
+		break;
+
+		case "REMOVEPLAYER":
+			if (msg.author == master && !startedGame && args[1] != null) {
+				var idx = array.indexOf(args[1]);
+
+				var embd = new Discord.RichEmbed()
+					.setColor("#ffff00")
+					.setTitle("🌟JUGONES BATTLE ROYALE🌟")
+					.setDescription("Removed player " + players[idx])
+				dc.send(embd);
+
+				if (idx > -1) {
+					array.splice(idx, 1);
+				}
 			}
 		break;
 
@@ -160,7 +178,7 @@ function nextTurn(everySeconds) {
 	var rndMove = Math.floor(Math.random * 2);
 	rndMove = 0;///debug
 	if (rndMove == 0) { //WEAPON//////////////////////////////////////////////////////////////////////////
-		var weap = Math.floor(Math.random * (weapons - 1));
+		var weap = Math.floor(Math.random() * (weapons.length - 1)) + 1;
 
 		txt += returnStats(p1) + "\n HA ENCONTRADO " + weapons[weap][0];
 
