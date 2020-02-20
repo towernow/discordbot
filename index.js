@@ -82,17 +82,17 @@ bot.on("message", msg => {
 
 		case "REMOVEPLAYER":
 			if (msg.author == master && !startedGame && args[1] != null) {
-				var idx = players.indexOf(args[1]);
-
-				var embd = new Discord.RichEmbed()
-					.setColor("#ffff00")
-					.setTitle("🌟JUGONES BATTLE ROYALE🌟")
-					.setDescription("Removed player " + players[idx])
-				dc.send(embd);
+				var idx = args[1];
 
 				if (idx > -1) {
 					players.splice(idx, 1);
 				}
+
+				var embd = new Discord.RichEmbed()
+					.setColor("#ffff00")
+					.setTitle("🌟JUGONES BATTLE ROYALE🌟")
+					.setDescription("Removed player " + idx)
+				dc.send(embd);
 			}
 		break;
 
@@ -163,6 +163,7 @@ function nextTurn(everySeconds) {
 
 	var txt = "";
 	var p1 = Math.floor(Math.random * (players.length - 1));
+	console.log(p1);//debug
 
 	var embd = new Discord.RichEmbed();
 	embd.setTitle("🌟JUGONES BATTLE ROYALE🌟")
