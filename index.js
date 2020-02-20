@@ -69,8 +69,8 @@ bot.on("message", msg => {
 				}
 
 				players[players.length - 1].dead = false;
-				players[players.length - 1].weapon1 = 1;
-				players[players.length - 1].weapon2 = 1;
+				players[players.length - 1].weapon1 = 0;
+				players[players.length - 1].weapon2 = 0;
 
 				var embd = new Discord.RichEmbed()
 					.setColor("#ffff00")
