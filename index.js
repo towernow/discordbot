@@ -228,13 +228,13 @@ function nextTurn(rndMove) {
 		var p2;
 		do {
 			p2 = Math.floor(Math.random() * players.length);
-		} while (p1 == p2);
+		} while (p1 == p2 && players[p2].dead == false);
 
 		if (players[p1].ally == p2) { //Si coincide nuevo aliado con actual aliado -> abandono
 			players[p1].ally = null;
 			players[p2].ally = null;
 			txt += players[p1] + " ha abandonado a " + players[p2];
-		} else if (players[p1].ally == null && players[p2].ally == null && players[p2].dead == false) { //Si no tienen ninguno aliado se juntan
+		} else if (players[p1].ally == null && players[p2].ally == null) { //Si no tienen ninguno aliado se juntan
 			players[p1].ally = p2;
 			players[p2].ally = p1;
 			txt += players[p1] + " se ha juntado con " + players[p2];
@@ -258,7 +258,7 @@ function nextTurn(rndMove) {
 				players[p1].dead = true;
 				if (players[p1].ally != null)
 					players[players[p1].ally].ally = null;
-			} else if (probability == 1) {
+			} else if (probability == 1 && p2 == p1) {
 				txt += players[p1] + " se ha immolado junto a " + players[p2];
 				players[p1].dead = true;
 				players[p2].dead = true;
@@ -339,7 +339,7 @@ function nextTurn(rndMove) {
 		embd.setColor("#ff0000");
 	}
 
-	txt += "\n\n" + returnStats(p1);
+	txt += ".\n\n" + returnStats(p1);
 
 	var jgRestantes = 0;
 	for (var i = 0; i < players.length; i++) {
@@ -347,7 +347,7 @@ function nextTurn(rndMove) {
 			jgRestantes++;
 	}
 	embd.setFooter("Quedan " + jgRestantes + " jugadores restantes." + "\nIntroduce -show para ver el estado actual de la partida.");
-	embd.setDescription(txt + ".");
+	embd.setDescription(txt);
 	dc.send(embd);
 	checkWin();
 
@@ -370,10 +370,12 @@ function checkWin() {
 
 		var embd = new Discord.RichEmbed()
 			.setColor("#ffff00")
-			.setTitle("🎇JUGONES BATTLE ROYALE🎇")
-			.setDescription("VICTORIA ROYALE\nEL VENCEDOR ES " + players[winner])
+			.setTitle("🎆JUGONES BATTLE ROYALE🎆")
+			.setDescription("VICTORIA ROYALE\nEl vencedor es " + players[winner])
 			.setFooter("Queda " + jgRestantes + " jugador restante.");
 		dc.send(embd);
+
+		clearInterval(intervalMain);
 	}
 }
 
