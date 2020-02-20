@@ -119,7 +119,7 @@ bot.on("message", msg => {
 				dc.send(embd);
 
 				if (!startedGame) {
-					intervalMain = setInterval(nextTurn(), everyMSeconds);
+					intervalMain = setInterval(nextTurn, everyMSeconds);
 					startedGame = true;
 				}
 			}
