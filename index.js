@@ -276,6 +276,7 @@ function nextTurn(rndMove) {
 				players[p2].weapon2 = 0;
 				txt += " y se ha llevado su **" + weapons[players[p1].weapon2][0] + "**";
 			}
+
 		} else { //pelea
 			var pow1 = weapons[players[p1].weapon1][1] + weapons[players[p1].weapon2][1];
 			var pow2 = weapons[players[p2].weapon1][1] + weapons[players[p2].weapon2][1];
