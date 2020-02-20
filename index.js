@@ -63,12 +63,12 @@ bot.on("message", msg => {
 
 		case "ADDPLAYER":
 			if (msg.author == master && !startedGame && args[1] != null) {
-				var mention = msg.mentions.users.first();
-				if (mention == null) {
+				//var mention = msg.mentions.users.first();
+				//if (mention == null) {
 					players.push(args[1]);
-				} else {
-					players.push(mention);
-				}
+				//} else {
+				//	players.push(mention);
+				//}
 
 				players[players.length - 1].dead = false;
 				players[players.length - 1].weapon1 = 0;
@@ -276,7 +276,6 @@ function nextTurn(rndMove) {
 				players[p2].weapon2 = 0;
 				txt += " y se ha llevado su **" + weapons[players[p1].weapon2][0] + "**";
 			}
-
 		} else { //pelea
 			var pow1 = weapons[players[p1].weapon1][1] + weapons[players[p1].weapon2][1];
 			var pow2 = weapons[players[p2].weapon1][1] + weapons[players[p2].weapon2][1];
