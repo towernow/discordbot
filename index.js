@@ -121,6 +121,7 @@ bot.on("message", msg => {
 				dc.send(embd);
 
 				if (!startedGame) {
+					nextTurn();
 					intervalMain = setInterval(nextTurn, everyMSeconds);
 					startedGame = true;
 				}
@@ -181,26 +182,44 @@ function nextTurn(rndMove) {
 	txt += " DEL DÍA " + Math.floor(turnoN / 3) + "\n--------------------------------------\n\n";
 
 	if(rndMove == null)
-		rndMove = Math.floor(Math.random() * 2);
+		rndMove = Math.floor(Math.random() * 3);
 	if (rndMove == 0) { //WEAPON//////////////////////////////////////////////////////////////////////////
 		var weap = Math.floor(Math.random() * (weapons.length - 1)) + 1;
 
-		txt += players[p1] + "\n ha encontrado **" + weapons[weap][0] + "**";
+		if (weap == players[p1].weapon1) { //Pierde objetos
+			txt += players[p1] + " ha tropezado y ha perdido su **" + weapons[players[p1].weapon1][0] + "** y su **" + weapons[players[p1].weapon2][0] + "**";
+			players[p1].weapon1 = 0;
+			players[p1].weapon2 = 0;
+		} else if (weap == players[p1].weapon2) { //Altar sataniko
+			var p2;
+			do {
+				p2 = Math.floor(Math.random() * players.length);
+			} while (!players[p2].dead);
 
-		if (players[p1].weapon1 == 0) {
-			players[p1].weapon1 = weap;
-		} else if (players[p1].weapon2 == 0) {
-			players[p1].weapon2 = weap;
-		} else {
-			if (weapons[players[p1].weapon1][1] < weapons[players[p1].weapon2][1]) { //Si el poder del arma 1 es menor que el de arma 2
-				txt += " y ha lanzado **" + weapons[players[p1].weapon1][0] + "**";
+			players[p2].dead = false;
+			players[p2].weapon1 = 0;
+			players[p2].weapon2 = 0;
+			players[p2].ally = null;
+
+			txt += players[p1] + " ha encontrado **un altar sataniko** y ha revivido a " + players[p2];
+		}
+		else {
+			txt += players[p1] + " ha encontrado **" + weapons[weap][0] + "**";
+
+			if (players[p1].weapon1 == 0) {
 				players[p1].weapon1 = weap;
-			} else {
-				txt += " y ha lanzado **" + weapons[players[p1].weapon2][0] + "**";
+			} else if (players[p1].weapon2 == 0) {
 				players[p1].weapon2 = weap;
+			} else {
+				if (weapons[players[p1].weapon1][1] < weapons[players[p1].weapon2][1]) { //Si el poder del arma 1 es menor que el de arma 2
+					txt += " y ha lanzado su **" + weapons[players[p1].weapon1][0] + "**";
+					players[p1].weapon1 = weap;
+				} else {
+					txt += " y ha lanzado su **" + weapons[players[p1].weapon2][0] + "**";
+					players[p1].weapon2 = weap;
+				}
 			}
 		}
-		//encontrar biblia revivir muerto
 		embd.setColor("#0000ff");
 	}
 	else if (rndMove == 1) { //ALLY//////////////////////////////////////////////////////////////////////////
