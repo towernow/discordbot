@@ -60,7 +60,7 @@ bot.on("message", msg => {
 		break;
 		
 		case "ADDPLAYER":
-			if (!startedGame && args[1] != null) {
+			if (msg.author == master && !startedGame && args[1] != null) {
 				var mention = msg.mentions.users.first();
 				if (mention == null) {
 					players.push(args[1]);
@@ -162,6 +162,7 @@ function nextTurn(everySeconds) {
 	txt += " DEL DÍA " + Math.floor(turnoN / 3) + "\n--------------------------------------\n\n";
 
 	var rndMove = Math.floor(Math.random * 2);
+	rndMove = 0;///debug
 	if (rndMove == 0) { //WEAPON//////////////////////////////////////////////////////////////////////////
 		var weap = Math.floor(Math.random * (weapons - 1));
 
@@ -205,7 +206,7 @@ function nextTurn(everySeconds) {
 }
 
 function returnStats(pid) {
-	return (players[pid].dead ? "💀 " : "⭐ ")
+	return (players[pid].dead != null ? (players[pid].dead ? "💀 " : "⭐ ") : "-")
 		+ players[pid]
 		+ " :     ⚔️"
 		+ (players[pid].weapon1 != null ? weapons[players[pid].weapon1][0] : "-")
