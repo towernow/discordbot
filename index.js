@@ -183,17 +183,17 @@ function nextTurn(everySeconds) {
 
 		txt += returnStats(p1) + "\n HA ENCONTRADO " + weapons[weap][0];
 
-		if (players[p1].weapon1 == null) {
+		if (players[p1].weapon1 == 0) {
 			players[p1].weapon1 = weap;
-		} else if (players[p1].weapon2 == null) {
+		} else if (players[p1].weapon2 == 0) {
 			players[p1].weapon2 = weap;
 		} else {
 			if (weapons[players[p1].weapon1][1] < weapons[players[p1].weapon2][1]) { //Si el poder del arma 1 es menor que el de arma 2
-				players[p1].weapon1 = weap;
 				txt += " Y HA TIRADO " + weapons[players[p1].weapon1][0];
+				players[p1].weapon1 = weap;
 			} else {
-				players[p1].weapon2 = weap;
 				txt += " Y HA TIRADO " + weapons[players[p1].weapon2][0];
+				players[p1].weapon2 = weap;
 			}
 		}
 		embd.setColor("#0000ff");
@@ -236,7 +236,7 @@ function returnStats(pid) {
 			+ "  🧑‍🤝‍🧑"
 			+ (players[pid].ally != null ? players[pid].ally : "-");
 	} else {
-		return "ERROR";
+		return "ERROR " + pid;
 	}
 } 
 
