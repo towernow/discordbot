@@ -73,6 +73,7 @@ bot.on("message", msg => {
 				players[players.length - 1].dead = false;
 				players[players.length - 1].weapon1 = 0;
 				players[players.length - 1].weapon2 = 0;
+				players[players.length - 1].ally = null;
 
 				var embd = new Discord.RichEmbed()
 					.setColor("#ffff00")
@@ -203,7 +204,7 @@ function nextTurn() {
 	else if (rndMove == 1) { //ALLY//////////////////////////////////////////////////////////////////////////
 		var p2;
 		do {
-			p2 = Math.floor(Math.random * players.length);
+			p2 = Math.floor(Math.random() * players.length);
 		} while (p1 == p2);
 
 		console.log(p1 + " loves " + p2);
@@ -224,7 +225,7 @@ function nextTurn() {
 		embd.setColor("#7fff00");
 	}
 	else if (rndMove == 2) { //KILL//////////////////////////////////////////////////////////////////////////
-		var p2 = Math.floor(Math.random * players.length);
+		var p2 = Math.floor(Math.random() * players.length);
 
 		embd.setColor("#ff0000");
 	}
