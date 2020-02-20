@@ -1,7 +1,7 @@
 ﻿const Discord = require("discord.js");
 const bot = new Discord.Client();
 const token = "Njc2MTI0Mzk1Nzg1NDIwODAx.Xkqy5Q.jpuZuQRI1Lw0eoX0z17uc10UMws";
-const pre = "-", everyMSeconds = 5*1000; //Time ms (86400*1000)/3(un dia);
+const pre = "-", everyMSeconds = (86400*1000)/3; //Time ms (86400*1000)/3(un dia);
 var master, dc, startedGame = false, turnoN = 0, intervalMain;
 
 bot.on("ready", () => {
@@ -12,11 +12,7 @@ bot.on("ready", () => {
 
 var players = [];
 var weapons = [
-	["Puños", 0],
-	["Bandicoondon", 10],
-	["Penis", 7],
-	["Vagina", 5],
-	["T pose", 9]
+	["Puños", 0]
 ];
 
 
@@ -59,6 +55,25 @@ bot.on("message", msg => {
 		case "IMMASTER":
 			master = msg.author;
 			msg.author.send("You are now master.");
+		break;
+
+		case "HELPBR":
+			var txt = "HELP:\n\n";
+			txt += "-help\n";
+			txt += "-show\n";
+			txt += "-immaster\n";
+			txt += "-addplayer [@Mention] 👑\n";
+			txt += "-removeplayer [indexNum] 👑\n";
+			txt += "-addweapon [weapon name] [weapon power] 👑\n";
+			txt += "-startbr 👑\n";
+			txt += "-resetbr 👑\n";
+			txt += "-showweapons 👑\n";
+
+			var embd = new Discord.RichEmbed()
+				.setColor("#ffff00")
+				.setTitle("🌟JUGONES BATTLE ROYALE🌟")
+				.setDescription(txt)
+			dc.send(embd);
 		break;
 
 		case "ADDPLAYER":
@@ -112,7 +127,7 @@ bot.on("message", msg => {
 			}
 		break;
 
-		case "START":
+		case "STARTBR":
 			if (msg.author == master) {
 				var embd = new Discord.RichEmbed()
 					.setColor("#ffff00")
@@ -125,6 +140,26 @@ bot.on("message", msg => {
 					intervalMain = setInterval(nextTurn, everyMSeconds);
 					startedGame = true;
 				}
+			}
+		break;
+
+		case "RESETBR":
+			if (msg.author == master) {
+				var embd = new Discord.RichEmbed()
+					.setColor("#ffff00")
+					.setTitle("🌟JUGONES BATTLE ROYALE🌟")
+					.setDescription("BATTLE ROYALE RESETED");
+				dc.send(embd);
+
+				master = null;
+				startedGame = false;
+				dc = null;
+				players = [];
+				weapons = [
+					["Puños", 0]
+				];
+				turnoN = 0;
+				clearInterval(intervalMain);
 			}
 		break;
 
@@ -167,7 +202,7 @@ bot.on("message", msg => {
 
 function nextTurn(rndMove) {
 	var txt = "";
-	var p1;
+	var p1, p2 = null;
 	do {
 		p1 = Math.floor(Math.random() * players.length);
 	} while (players[p1].dead);
@@ -181,7 +216,7 @@ function nextTurn(rndMove) {
 		txt += "TARDE";
 	else if (turnoN % 3 == 2)
 		txt += "MEDIANOCHE";
-	txt += " DEL DÍA " + Math.floor(turnoN / 3) + "\n--------------------------------------\n\n";
+	txt += " DEL DÍA " + (Math.floor(turnoN / 3)+1) + "\n--------------------------------------\n\n";
 
 	if(rndMove == null)
 		rndMove = Math.floor(Math.random() * 5);
@@ -193,7 +228,6 @@ function nextTurn(rndMove) {
 			players[p1].weapon1 = 0;
 			players[p1].weapon2 = 0;
 		} else if (weap == players[p1].weapon2) { //Altar sataniko
-			var p2;
 			do {
 				p2 = Math.floor(Math.random() * players.length);
 			} while (!players[p2].dead);
@@ -225,7 +259,6 @@ function nextTurn(rndMove) {
 		embd.setColor("#0000ff");
 	}
 	else if (rndMove == 3 || rndMove == 4) { //ALLY//////////////////////////////////////////////////////////////////////////
-		var p2;
 		do {
 			p2 = Math.floor(Math.random() * players.length);
 		} while (p1 == p2 && players[p2].dead == false);
@@ -246,7 +279,6 @@ function nextTurn(rndMove) {
 		embd.setColor("#7fff00");
 	}
 	else if (rndMove == 0) { //KILL//////////////////////////////////////////////////////////////////////////
-		var p2;
 		do {
 			p2 = Math.floor(Math.random() * players.length);
 		} while (players[p2].dead);
@@ -338,8 +370,11 @@ function nextTurn(rndMove) {
 
 		embd.setColor("#ff0000");
 	}
-
+	
 	txt += ".\n\n" + returnStats(p1);
+	if (p2 != null) {
+		txt += "\n" + returnStats(p2);
+	}
 
 	var jgRestantes = 0;
 	for (var i = 0; i < players.length; i++) {
@@ -372,7 +407,7 @@ function checkWin() {
 			.setColor("#ffff00")
 			.setTitle("🎆JUGONES BATTLE ROYALE🎆")
 			.setDescription("VICTORIA ROYALE\nEl vencedor es " + players[winner])
-			.setFooter("Queda " + jgRestantes + " jugador restante.");
+			.setFooter("Queda " + jgRestantes + " jugador restante." + "\nIntroduce -show para ver el estado final de la partida.");
 		dc.send(embd);
 
 		clearInterval(intervalMain);
