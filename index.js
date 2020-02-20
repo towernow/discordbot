@@ -145,10 +145,6 @@ function nextTurn(everySeconds) {
 
 	var txt = "";
 	var p1 = Math.floor(Math.random * (players.length - 1));
-	var p2;
-	do {
-		p2 = Math.floor(Math.random * (players.length - 1));
-	} while (p1 == p2);
 
 	var embd = new Discord.RichEmbed();
 	embd.setTitle("🌟JUGONES BATTLE ROYALE🌟")
@@ -184,10 +180,15 @@ function nextTurn(everySeconds) {
 		embd.setColor("#0000ff");
 	}
 	else if (rndMove == 1) { //ALLY//////////////////////////////////////////////////////////////////////////
+		var p2;
+		do {
+			p2 = Math.floor(Math.random * (players.length - 1));
+		} while (p1 == p2);
 
 		embd.setColor("#7fff00");
 	}
 	else if (rndMove == 2) { //KILL//////////////////////////////////////////////////////////////////////////
+		var p2 = Math.floor(Math.random * (players.length - 1));
 
 		embd.setColor("#ff0000");
 	}
@@ -206,6 +207,7 @@ function nextTurn(everySeconds) {
 }
 
 function returnStats(pid) {
+	dc.send(pid);//debug
 	return (players[pid].dead != null ? (players[pid].dead ? "💀 " : "⭐ ") : "-")
 		+ players[pid]
 		+ " :     ⚔️"
