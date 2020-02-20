@@ -206,6 +206,8 @@ function nextTurn() {
 			p2 = Math.floor(Math.random * players.length);
 		} while (p1 == p2);
 
+		console.log(p1 + " loves " + p2);
+
 		if (players[p1].ally == p2) { //Si coincide nuevo aliado con actual aliado -> abandono
 			players[p1].ally = null;
 			players[p2].ally = null;
