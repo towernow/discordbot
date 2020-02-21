@@ -6,7 +6,7 @@ var master, dc, startedGame = false, turnoN = 0, intervalMain, everyMSeconds = 1
 
 bot.on("ready", () => {
 	console.log("BOT IS ONLINE!");
-	bot.user.setGame("Press -helpbr");
+	bot.user.setActivity("Press -helpbr");
 })
 
 /////////////////////////////////////////////////////////////////////////////////////
