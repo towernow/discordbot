@@ -62,7 +62,7 @@ bot.on("message", msg => {
 		break;
 
 		case "HELPBR":
-			var txt = "**Help:**\n";
+			var txt = "**Commands:**\n";
 			txt += "-helpbr\n";
 			txt += "-show\n";
 			txt += "-immaster\n";
