@@ -1,7 +1,7 @@
 ﻿const Discord = require("discord.js");
 const bot = new Discord.Client();
 const token = "Njc2MTI0Mzk1Nzg1NDIwODAx.Xkqy5Q.jpuZuQRI1Lw0eoX0z17uc10UMws";
-const pre = "-", everyMSeconds = (86400*1000)/3; //Time ms (86400*1000)/3(un dia);
+const pre = "-", everyMSeconds = (5*1000)/3; //Time ms (86400*1000)/3(un dia);
 var master, dc, startedGame = false, turnoN = 0, intervalMain;
 
 bot.on("ready", () => {
@@ -98,7 +98,7 @@ bot.on("message", msg => {
 				var embd = new Discord.RichEmbed()
 					.setColor("#ffff00")
 					.setTitle("🌟JUGONES BATTLE ROYALE🌟")
-					.setDescription("Added player " + players[players.length - 1])
+					.setDescription("⭐ Added player " + players[players.length - 1])
 				dc.send(embd);
 			}
 		break;
@@ -126,7 +126,7 @@ bot.on("message", msg => {
 				var embd = new Discord.RichEmbed()
 					.setColor("#ffff00")
 					.setTitle("🌟JUGONES BATTLE ROYALE🌟")
-					.setDescription("Added weapon " + weapons[weapons.length - 1][0] + " with power " + weapons[weapons.length - 1][1]);
+					.setDescription("⚔️ Added weapon **" + weapons[weapons.length - 1][0] + "** with power " + weapons[weapons.length - 1][1]);
 				dc.send(embd);
 			}
 		break;
@@ -170,7 +170,7 @@ bot.on("message", msg => {
 		case "SHOWWEAPONS":
 			var text = "";
 			for (var i = 0; i < weapons.length; i++) {
-				text += weapons[i][0].toUpperCase() + " with power " + weapons[i][1] + "\n";
+				text += "⚔️ **" + weapons[i][0] + "** with power " + weapons[i][1] + "\n";
 			}
 
 			var embd = new Discord.RichEmbed()
