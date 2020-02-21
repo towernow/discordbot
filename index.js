@@ -294,7 +294,11 @@ function nextTurn(rndMove) {
 				players[p1].dead = true;
 				if (players[p1].ally != null)
 					players[players[p1].ally].ally = null;
-			} else if (probability == 1 && p2 == p1) {
+			} else if (probability == 1) {
+				do {
+					p2 = Math.floor(Math.random() * players.length);
+				} while (players[p2].dead && p1==p2);
+
 				txt += players[p1] + " se ha immolado junto a " + players[p2];
 				players[p1].dead = true;
 				players[p2].dead = true;
