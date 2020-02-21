@@ -101,6 +101,7 @@ bot.on("message", msg => {
 					.setTitle("🌟JUGONES BATTLE ROYALE🌟")
 					.setDescription("⭐ Added player " + players[players.length - 1])
 				dc.send(embd);
+				msg.delete(1000);
 			}
 			break;
 
@@ -117,6 +118,7 @@ bot.on("message", msg => {
 					.setTitle("🌟JUGONES BATTLE ROYALE🌟")
 					.setDescription("Removed player " + idx)
 				dc.send(embd);
+				msg.delete(1000);
 			}
 		break;
 
@@ -133,6 +135,7 @@ bot.on("message", msg => {
 					.setTitle("🌟JUGONES BATTLE ROYALE🌟")
 					.setDescription("Removed weapon **" + idx)
 				dc.send(embd);
+				msg.delete(1000);
 			}
 		break;
 
@@ -145,32 +148,28 @@ bot.on("message", msg => {
 					.setTitle("🌟JUGONES BATTLE ROYALE🌟")
 					.setDescription("⚔️ Added weapon **" + weapons[weapons.length - 1][0] + "** with power " + weapons[weapons.length - 1][1]);
 				dc.send(embd);
+				msg.delete(1000);
 			}
 		break;
 
 		case "STARTBR":
 			if (msg.author == master && args[1] != null && !startedGame) {
+				everyMSeconds = args[1] * 1000;
+				startedGame = true;
+				nextTurn();
+				intervalMain = setInterval(nextTurn, everyMSeconds);
+
 				var embd = new Discord.RichEmbed()
 					.setColor("#ffff00")
 					.setTitle("🌟JUGONES BATTLE ROYALE🌟")
 					.setDescription("¡DA COMIENZO EL JUGONES BATTLE ROYALE!");
 				dc.send(embd);
-
-				everyMSeconds = args[1] * 1000;
-				startedGame = true;
-				nextTurn();
-				intervalMain = setInterval(nextTurn, everyMSeconds);
+				msg.delete(1000);
 			}
 		break;
 
 		case "RESETBR":
 			if (msg.author == master) {
-				var embd = new Discord.RichEmbed()
-					.setColor("#ffff00")
-					.setTitle("🌟JUGONES BATTLE ROYALE🌟")
-					.setDescription("BATTLE ROYALE RESETED");
-				dc.send(embd);
-
 				master = null;
 				startedGame = false;
 				dc = null;
@@ -180,6 +179,13 @@ bot.on("message", msg => {
 				];
 				turnoN = 0;
 				clearInterval(intervalMain);
+
+				var embd = new Discord.RichEmbed()
+					.setColor("#ffff00")
+					.setTitle("🌟JUGONES BATTLE ROYALE🌟")
+					.setDescription("BATTLE ROYALE RESETED");
+				dc.send(embd);
+				msg.delete(1000);
 			}
 		break;
 
@@ -194,6 +200,7 @@ bot.on("message", msg => {
 				.setTitle("🌟JUGONES BATTLE ROYALE🌟")
 				.setDescription(text)
 			dc.send(embd);
+			msg.delete(1000);
 		break;
 
 		case "SHOW":
@@ -215,6 +222,7 @@ bot.on("message", msg => {
 				.setDescription(text)
 				.setFooter("Quedan " + jgRestantes + " jugadores restantes.");
 			dc.send(embd);
+			msg.delete(1000);
 		break;
 
 	}
