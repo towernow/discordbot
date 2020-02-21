@@ -69,9 +69,10 @@ bot.on("message", msg => {
 			txt += "-addplayer [@Mention] 👑\n";
 			txt += "-removeplayer [indexNum] 👑\n";
 			txt += "-addweapon [weapon name] [weapon power] 👑\n";
-			txt += "-startbr 👑\n";
-			txt += "-resetbr 👑\n";
+			txt += "-removeweapon [indexNum] 👑\n";
 			txt += "-showweapons 👑\n";
+			txt += "-startbr [time in ms]👑\n";
+			txt += "-resetbr 👑\n";
 
 			var embd = new Discord.RichEmbed()
 				.setColor("#ffff00")
@@ -101,7 +102,7 @@ bot.on("message", msg => {
 					.setDescription("⭐ Added player " + players[players.length - 1])
 				dc.send(embd);
 			}
-		break;
+			break;
 
 		case "REMOVEPLAYER":
 			if (msg.author == master && !startedGame && args[1] != null) {
@@ -119,6 +120,22 @@ bot.on("message", msg => {
 			}
 		break;
 
+		case "REMOVEWEAPON":
+			if (msg.author == master && !startedGame && args[1] != null) {
+				var idx = args[1];
+
+				if (idx > -1) {
+					weapons.splice(idx, 1);
+				}
+
+				var embd = new Discord.RichEmbed()
+					.setColor("#ffff00")
+					.setTitle("🌟JUGONES BATTLE ROYALE🌟")
+					.setDescription("Removed weapon **" + idx)
+				dc.send(embd);
+			}
+		break;
+
 		case "ADDWEAPON":
 			if (msg.author == master && args[1] != null && args[2] != null) {
 				weapons.push([args[1], args[2]]);
@@ -132,18 +149,17 @@ bot.on("message", msg => {
 		break;
 
 		case "STARTBR":
-			if (msg.author == master) {
+			if (msg.author == master && args[1] != null && !startedGame) {
 				var embd = new Discord.RichEmbed()
 					.setColor("#ffff00")
 					.setTitle("🌟JUGONES BATTLE ROYALE🌟")
 					.setDescription("¡DA COMIENZO EL JUGONES BATTLE ROYALE!");
 				dc.send(embd);
 
-				if (!startedGame) {
-					nextTurn();
-					intervalMain = setInterval(nextTurn, everyMSeconds);
-					startedGame = true;
-				}
+				everyMSeconds = args[1];
+				startedGame = true;
+				nextTurn();
+				intervalMain = setInterval(nextTurn, everyMSeconds);
 			}
 		break;
 
