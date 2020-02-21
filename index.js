@@ -2,7 +2,7 @@
 const bot = new Discord.Client();
 const token = "Njc2MTI0Mzk1Nzg1NDIwODAx.Xkqy5Q.jpuZuQRI1Lw0eoX0z17uc10UMws";
 const pre = "-"; //Time ms (86400*1000)/3(un dia);
-var master, dc, startedGame = false, turnoN = 0, intervalMain, everyMSeconds = (10 * 1000) / 3;
+var master, dc, startedGame = false, turnoN = 0, intervalMain, everyMSeconds = 1000;
 
 bot.on("ready", () => {
 	console.log("BOT IS ONLINE!");
@@ -71,7 +71,7 @@ bot.on("message", msg => {
 			txt += "-addweapon [weapon name] [weapon power] 👑\n";
 			txt += "-removeweapon [indexNum] 👑\n";
 			txt += "-showweapons 👑\n";
-			txt += "-startbr [time in ms]👑\n";
+			txt += "-startbr [time in seconds]👑\n";
 			txt += "-resetbr 👑\n";
 
 			var embd = new Discord.RichEmbed()
@@ -156,7 +156,7 @@ bot.on("message", msg => {
 					.setDescription("¡DA COMIENZO EL JUGONES BATTLE ROYALE!");
 				dc.send(embd);
 
-				everyMSeconds = args[1];
+				everyMSeconds = args[1] * 1000;
 				startedGame = true;
 				nextTurn();
 				intervalMain = setInterval(nextTurn, everyMSeconds);
