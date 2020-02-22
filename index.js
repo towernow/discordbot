@@ -21,35 +21,37 @@ var weapons = [
 
 
 bot.on("message", msg => {
-	dc = msg.channel; //default channel
+	if(dc == null){
+		dc = msg.channel; //default channel
+	}
 	var txt = msg.content.toUpperCase();
 
 	if (msg.author.bot)
 		return;
 
 	if (txt.indexOf("HOLA") != -1) {
-		dc.send("que tal bro");
+		msg.channel.send("que tal bro");
 	}
 	else if (txt.indexOf("PUTO") != -1 || txt.indexOf("PUTA") != -1 || txt.indexOf("POLLA") != -1) {
-		dc.send("eeeeh");
+		msg.channel.send("eeeeh");
 	}
 	else if (txt.indexOf("ERES UN BOT?") != -1) {
-		dc.send("lol no");
+		msg.channel.send("lol no");
 	}
 	else if (txt.indexOf("JAJAJA") != -1) {
-		dc.send("jajaj");
+		msg.channel.send("jajaj");
 	}
 	else if (txt.indexOf("LOL") != -1) {
-		dc.send("tu, vendete ya la cuenta va");
+		msg.channel.send("tu, vendete ya la cuenta va");
 	}
 	else if (txt.indexOf("GILIPOLLAS") != -1 || txt.indexOf("IMBECIL") != -1) {
-		dc.send("tu madre");
+		msg.channel.send("tu madre");
 	}
 	else if (txt.indexOf("LLOR") != -1) {
-		dc.send("te traigo uns mocadors o que tio?");
+		msg.channel.send("te traigo uns mocadors o que tio?");
 	}
 	else if ((" " + txt + " ").indexOf(" TU ") != -1 || (" " + txt + " ").indexOf(" TU, ") != -1 || (" " + txt + " ").indexOf(" ,TU ") != -1) {
-		dc.send("te estas jugando un baneo loko..");
+		msg.channel.send("te estas jugando un baneo loko..");
 	}
 
 
@@ -57,20 +59,21 @@ bot.on("message", msg => {
 	switch (args[0].toUpperCase()) {
 
 		case "IMMASTER":
-			master = msg.author;
-			msg.author.send("You are now master.");
+			if(master == null){
+				master = msg.author;
+				msg.author.send("You are now master.");
+			}
 		break;
 
 		case "HELPBR":
 			var txt = "**Commands:**\n";
 			txt += "-helpbr\n";
 			txt += "-show\n";
-			txt += "-immaster\n";
+			txt += "-showweapons\n";
 			txt += "-addplayer [@Mention] 👑\n";
 			txt += "-removeplayer [indexNum] 👑\n";
 			txt += "-addweapon [weapon name] [weapon power] 👑\n";
 			txt += "-removeweapon [indexNum] 👑\n";
-			txt += "-showweapons 👑\n";
 			txt += "-startbr [time in seconds]👑\n";
 			txt += "-resetbr 👑\n";
 
