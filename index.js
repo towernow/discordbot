@@ -20,7 +20,7 @@ bot.on("ready", () => {
 })
 
 const fs = require("fs");
-client.database = require("./database.json");
+bot.database = require("./database.json");
 
 bot.on("message", msg => {
 	if(dc == null){
@@ -68,16 +68,16 @@ bot.on("message", msg => {
 		break;
 		
 		case "TEST1":
-			client.database[msg.author.username] = {
+			bot.database[msg.author.username] = {
 				message: msg.content
 			}
-			fs.writeFile("./database.json", JSON.stringfy(client.database, null, 4), err =>{
+			fs.writeFile("./database.json", JSON.stringfy(bot.database, null, 4), err =>{
 				if(err) throw err;
 				msg.channel.send("message written");
 			});
 		break;
 		case "TEST2":
-			let _message = client.database[msg.author.username].message;
+			let _message = bot.database[msg.author.username].message;
 			msg.channel.send("message is: " + _message);
 		break;
 
