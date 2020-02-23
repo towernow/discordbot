@@ -1,8 +1,25 @@
 ﻿const Discord = require("discord.js");
 const bot = new Discord.Client();
-const token = "Njc2MTI0Mzk1Nzg1NDIwODAx.Xkqy5Q.jpuZuQRI1Lw0eoX0z17uc10UMws";
 const pre = "-"; //Time ms (86400*1000)/3(un dia);
 var master, dc, startedGame = false, turnoN = 0, intervalMain, everyMSeconds = 1000;
+require("dotenv/config");
+
+//IMPORT SETTINGS
+const owner = process.env.OWNER;
+const token = process.env.TOKEN;
+
+//INITIALISE FIREBASE
+const firebase = require("firebase/app");
+const FieldValue = value("firebase-admin").firestore.FieldValue;
+const admin = require("firebase-admin");
+const serviceAccount = require("./serviceAccount.json");
+
+admin.initialiseApp({
+	credential: admin.credential.cert(serviceAccount)
+})
+
+let db = admin.firestore();
+
 
 bot.on("ready", () => {
 	console.log("BOT IS ONLINE!");
@@ -32,7 +49,7 @@ bot.on("message", msg => {
 	if (txt.indexOf("HOLA") != -1) {
 		msg.channel.send("que tal bro");
 	}
-	else if (txt.indexOf("PUTO") != -1 || txt.indexOf("PUTA") != -1 || txt.indexOf("POLLA") != -1) {
+	else if (txt.indexOf("PUTO") != -1 || txt.indexOf("PUTA") != -1) {
 		msg.channel.send("eeeeh");
 	}
 	else if (txt.indexOf("ERES UN BOT?") != -1) {
@@ -44,7 +61,7 @@ bot.on("message", msg => {
 	else if (txt.indexOf("LOL") != -1) {
 		msg.channel.send("tu, vendete ya la cuenta va");
 	}
-	else if (txt.indexOf("GILIPOLLAS") != -1 || txt.indexOf("IMBECIL") != -1) {
+	else if (txt.indexOf("GILIPOLLAS") != -1 || txt.indexOf("IMBECIL") != -1 || txt.indexOf("SUBNORMAL") != -1 || txt.indexOf("RETRASADO") != -1) {
 		msg.channel.send("tu madre");
 	}
 	else if (txt.indexOf("LLOR") != -1) {
@@ -229,7 +246,18 @@ bot.on("message", msg => {
 		break;
 
 	}
-})
+});
+
+bot.on("guildCreate", async gData => {
+	db.collection("guilds").doc(dData.id).set({
+		"guildID" : gData.id,
+		"guildName" : gData.name,
+		"guildOwner" : gData.owner.user.username,
+		"guildOwnerID" : gData.owner.id
+		"guildMemberCount" : gData.memberCount,
+		"prefix" : "!"
+	});
+});
 
 function nextTurn(rndMove) {
 	var txt = "";

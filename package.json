@@ -9,6 +9,9 @@
   "author": "Torry",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^11.5.1"
+    "discord.js": "^11.5.1",
+    "dotenv": "^8.2.0",
+    "firebase": "^7.9.1",
+    "firebase-admin": "^8.9.2"
   }
 }
