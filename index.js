@@ -19,6 +19,9 @@ bot.on("ready", () => {
 	bot.user.setActivity("Press -helpbr");
 })
 
+const fs = require("fs");
+client.database = require("./database.json");
+
 bot.on("message", msg => {
 	if(dc == null){
 		dc = msg.channel; //default channel
@@ -56,12 +59,22 @@ bot.on("message", msg => {
 
 	let args = msg.content.substring(pre.length).split(" ");
 	switch (args[0].toUpperCase()) {
-
+	
 		case "IMMASTER":
 			if(master == null){
 				master = msg.author;
 				msg.author.send("You are now master.");
 			}
+		break;
+
+		case "TEST":
+			client.database[message.author.username] = {
+				message: msg.content;
+			}
+			fs.writeFile("./database.json", JSON.stringfy(client.database, null, 4), err =>{
+				if(err) throw err;
+				message.channel.send("message written");
+			});
 		break;
 
 		case "HELPBR":
