@@ -1,25 +1,8 @@
-﻿const Discord = require("discord.js");
+﻿﻿const Discord = require("discord.js");
 const bot = new Discord.Client();
+const token = "Njc2MTI0Mzk1Nzg1NDIwODAx.Xkqy5Q.jpuZuQRI1Lw0eoX0z17uc10UMws";
 const pre = "-"; //Time ms (86400*1000)/3(un dia);
 var master, dc, startedGame = false, turnoN = 0, intervalMain, everyMSeconds = 1000;
-require("dotenv/config");
-
-//IMPORT SETTINGS
-const owner = process.env.OWNER;
-const token = process.env.TOKEN;
-
-//INITIALISE FIREBASE
-const firebase = require("firebase/app");
-const FieldValue = value("firebase-admin").firestore.FieldValue;
-const admin = require("firebase-admin");
-const serviceAccount = require("./serviceAccount.json");
-
-admin.initialiseApp({
-	credential: admin.credential.cert(serviceAccount)
-})
-
-let db = admin.firestore();
-
 
 bot.on("ready", () => {
 	console.log("BOT IS ONLINE!");
@@ -38,45 +21,37 @@ var weapons = [
 
 
 bot.on("message", msg => {
-	dc = msg.channel; //default channel
+	if(dc == null){
+		dc = msg.channel; //default channel
+	}
 	var txt = msg.content.toUpperCase();
 
 	if (msg.author.bot)
 		return;
 
 	if (txt.indexOf("HOLA") != -1) {
-		dc.send("que tal bro");
+		msg.channel.send("que tal bro");
 	}
-<<<<<<< HEAD
-	else if (txt.indexOf("PUTO") != -1 || txt.indexOf("PUTA") != -1) {
-		msg.channel.send("eeeeh");
-=======
 	else if (txt.indexOf("PUTO") != -1 || txt.indexOf("PUTA") != -1 || txt.indexOf("POLLA") != -1) {
-		dc.send("eeeeh");
->>>>>>> parent of 7998120... up
+		msg.channel.send("eeeeh");
 	}
 	else if (txt.indexOf("ERES UN BOT?") != -1) {
-		dc.send("lol no");
+		msg.channel.send("lol no");
 	}
 	else if (txt.indexOf("JAJAJA") != -1) {
-		dc.send("jajaj");
+		msg.channel.send("jajaj");
 	}
 	else if (txt.indexOf("LOL") != -1) {
-		dc.send("tu, vendete ya la cuenta va");
+		msg.channel.send("tu, vendete ya la cuenta va");
 	}
-<<<<<<< HEAD
-	else if (txt.indexOf("GILIPOLLAS") != -1 || txt.indexOf("IMBECIL") != -1 || txt.indexOf("SUBNORMAL") != -1 || txt.indexOf("RETRASADO") != -1) {
-		msg.channel.send("tu madre");
-=======
 	else if (txt.indexOf("GILIPOLLAS") != -1 || txt.indexOf("IMBECIL") != -1) {
-		dc.send("tu madre");
->>>>>>> parent of 7998120... up
+		msg.channel.send("tu madre");
 	}
 	else if (txt.indexOf("LLOR") != -1) {
-		dc.send("te traigo uns mocadors o que tio?");
+		msg.channel.send("te traigo uns mocadors o que tio?");
 	}
 	else if ((" " + txt + " ").indexOf(" TU ") != -1 || (" " + txt + " ").indexOf(" TU, ") != -1 || (" " + txt + " ").indexOf(" ,TU ") != -1) {
-		dc.send("te estas jugando un baneo loko..");
+		msg.channel.send("te estas jugando un baneo loko..");
 	}
 
 
@@ -84,20 +59,21 @@ bot.on("message", msg => {
 	switch (args[0].toUpperCase()) {
 
 		case "IMMASTER":
-			master = msg.author;
-			msg.author.send("You are now master.");
+			if(master == null){
+				master = msg.author;
+				msg.author.send("You are now master.");
+			}
 		break;
 
 		case "HELPBR":
 			var txt = "**Commands:**\n";
 			txt += "-helpbr\n";
 			txt += "-show\n";
-			txt += "-immaster\n";
+			txt += "-showweapons\n";
 			txt += "-addplayer [@Mention] 👑\n";
 			txt += "-removeplayer [indexNum] 👑\n";
 			txt += "-addweapon [weapon name] [weapon power] 👑\n";
 			txt += "-removeweapon [indexNum] 👑\n";
-			txt += "-showweapons 👑\n";
 			txt += "-startbr [time in seconds]👑\n";
 			txt += "-resetbr 👑\n";
 
@@ -253,18 +229,7 @@ bot.on("message", msg => {
 		break;
 
 	}
-});
-
-bot.on("guildCreate", async gData => {
-	db.collection("guilds").doc(dData.id).set({
-		"guildID" : gData.id,
-		"guildName" : gData.name,
-		"guildOwner" : gData.owner.user.username,
-		"guildOwnerID" : gData.owner.id
-		"guildMemberCount" : gData.memberCount,
-		"prefix" : "!"
-	});
-});
+})
 
 function nextTurn(rndMove) {
 	var txt = "";
