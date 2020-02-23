@@ -38,37 +38,45 @@ var weapons = [
 
 
 bot.on("message", msg => {
-	if(dc == null){
-		dc = msg.channel; //default channel
-	}
+	dc = msg.channel; //default channel
 	var txt = msg.content.toUpperCase();
 
 	if (msg.author.bot)
 		return;
 
 	if (txt.indexOf("HOLA") != -1) {
-		msg.channel.send("que tal bro");
+		dc.send("que tal bro");
 	}
+<<<<<<< HEAD
 	else if (txt.indexOf("PUTO") != -1 || txt.indexOf("PUTA") != -1) {
 		msg.channel.send("eeeeh");
+=======
+	else if (txt.indexOf("PUTO") != -1 || txt.indexOf("PUTA") != -1 || txt.indexOf("POLLA") != -1) {
+		dc.send("eeeeh");
+>>>>>>> parent of 7998120... up
 	}
 	else if (txt.indexOf("ERES UN BOT?") != -1) {
-		msg.channel.send("lol no");
+		dc.send("lol no");
 	}
 	else if (txt.indexOf("JAJAJA") != -1) {
-		msg.channel.send("jajaj");
+		dc.send("jajaj");
 	}
 	else if (txt.indexOf("LOL") != -1) {
-		msg.channel.send("tu, vendete ya la cuenta va");
+		dc.send("tu, vendete ya la cuenta va");
 	}
+<<<<<<< HEAD
 	else if (txt.indexOf("GILIPOLLAS") != -1 || txt.indexOf("IMBECIL") != -1 || txt.indexOf("SUBNORMAL") != -1 || txt.indexOf("RETRASADO") != -1) {
 		msg.channel.send("tu madre");
+=======
+	else if (txt.indexOf("GILIPOLLAS") != -1 || txt.indexOf("IMBECIL") != -1) {
+		dc.send("tu madre");
+>>>>>>> parent of 7998120... up
 	}
 	else if (txt.indexOf("LLOR") != -1) {
-		msg.channel.send("te traigo uns mocadors o que tio?");
+		dc.send("te traigo uns mocadors o que tio?");
 	}
 	else if ((" " + txt + " ").indexOf(" TU ") != -1 || (" " + txt + " ").indexOf(" TU, ") != -1 || (" " + txt + " ").indexOf(" ,TU ") != -1) {
-		msg.channel.send("te estas jugando un baneo loko..");
+		dc.send("te estas jugando un baneo loko..");
 	}
 
 
@@ -76,21 +84,20 @@ bot.on("message", msg => {
 	switch (args[0].toUpperCase()) {
 
 		case "IMMASTER":
-			if(master == null){
-				master = msg.author;
-				msg.author.send("You are now master.");
-			}
+			master = msg.author;
+			msg.author.send("You are now master.");
 		break;
 
 		case "HELPBR":
 			var txt = "**Commands:**\n";
 			txt += "-helpbr\n";
 			txt += "-show\n";
-			txt += "-showweapons\n";
+			txt += "-immaster\n";
 			txt += "-addplayer [@Mention] 👑\n";
 			txt += "-removeplayer [indexNum] 👑\n";
 			txt += "-addweapon [weapon name] [weapon power] 👑\n";
 			txt += "-removeweapon [indexNum] 👑\n";
+			txt += "-showweapons 👑\n";
 			txt += "-startbr [time in seconds]👑\n";
 			txt += "-resetbr 👑\n";
 
