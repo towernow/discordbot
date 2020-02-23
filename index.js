@@ -34,7 +34,7 @@ bot.on("message", msg => {
 	if (txt.indexOf("HOLA") != -1) {
 		msg.channel.send("que tal bro");
 	}
-	else if (txt.indexOf("PUTO") != -1 || txt.indexOf("PUTA") != -1 || txt.indexOf("POLLA") != -1) {
+	else if (txt.indexOf("PUTO") != -1 || txt.indexOf("PUTA") != -1 || txt.indexOf("POLLA") != -1 || txt.indexOf("SUBNORMAL") != -1 || txt.indexOf("RETRASADO") != -1) {
 		msg.channel.send("eeeeh");
 	}
 	else if (txt.indexOf("ERES UN BOT?") != -1) {
@@ -67,17 +67,8 @@ bot.on("message", msg => {
 			}
 		break;
 		
-		case "TEST1":
-			bot.database[msg.author.username] = {
-				message: "putos"
-			}
-			fs.writeFile("./database.json", JSON.stringfy(bot.database, null, 4), err =>{
-				if(err) throw err;
-				msg.channel.send("message written");
-			});
-		break;
 		case "TEST2":
-			let _message = bot.database[msg.author.username].message;
+			let _message = bot.database["Torry"].message;
 			msg.channel.send("message is: " + _message);
 		break;
 
