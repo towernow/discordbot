@@ -2,7 +2,6 @@
 const bot = new Discord.Client();
 const token = "Njc2MTI0Mzk1Nzg1NDIwODAx.Xkqy5Q.jpuZuQRI1Lw0eoX0z17uc10UMws";
 const pre = "-"; //Time ms (86400*1000)/3(un dia);
-const mysql = require("mysql");
 
 /////////////////////////////////////////////////////////////////////////////////////
 //https://discordapp.com/oauth2/authorize?client_id=676124395785420801&scope=bot&permissions=1341652289
@@ -14,18 +13,6 @@ var players = [];
 var weapons = [
 	["Puños", 0]
 ];
-
-var con = mysql.createConnection({
-	host: "localhost",
-	user: "root",
-	password: "far123ga",
-	database: "discordbot"
-});
-
-con.connect(err => {
-	if(err) throw err;
-	console.log("Connected to database!");
-});
 
 bot.on("ready", () => {
 	console.log("BOT IS ONLINE!");
