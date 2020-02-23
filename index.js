@@ -69,7 +69,7 @@ bot.on("message", msg => {
 		
 		case "TEST1":
 			bot.database[msg.author.username] = {
-				message: msg.content
+				message: "putos"
 			}
 			fs.writeFile("./database.json", JSON.stringfy(bot.database, null, 4), err =>{
 				if(err) throw err;
