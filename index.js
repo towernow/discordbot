@@ -66,15 +66,19 @@ bot.on("message", msg => {
 				msg.author.send("You are now master.");
 			}
 		break;
-
-		case "TEST":
-			client.database[message.author.username] = {
+		
+		case "TEST1":
+			client.database[msg.author.username] = {
 				message: msg.content;
 			}
 			fs.writeFile("./database.json", JSON.stringfy(client.database, null, 4), err =>{
 				if(err) throw err;
-				message.channel.send("message written");
+				msg.channel.send("message written");
 			});
+		break;
+		case "TEST2":
+			let _message = client.database[msg.author.username].message;
+			msg.channel.send("message is: " + _message);
 		break;
 
 		case "HELPBR":
