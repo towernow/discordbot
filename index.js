@@ -56,7 +56,7 @@ bot.on("message", msg => {
 	else if (txt.indexOf("LOL") != -1) {
 		msg.channel.send("tu, vendete ya la cuenta va");
 	}
-	else if (txt.indexOf("GILIPOLLAS") != -1 || txt.indexOf("IMBECIL") != -1 || txt.indexOf("SUBNORMAL") != -1 || txt.indexOf("RETRASADO") != -1) {
+	else if (txt.indexOf("GILIPOLLAS") != -1 || txt.indexOf("IMBECIL") != -1) {
 		msg.channel.send("tu madre");
 	}
 	else if (txt.indexOf("LLOR") != -1) {
