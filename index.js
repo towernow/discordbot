@@ -32,7 +32,7 @@ bot.on("message", msg => {
 		return;
 
 	if (txt.indexOf("HOLA") != -1) {
-		msg.channel.send("/tts que tal bro");
+		msg.channel.send("que tal bro");
 	}
 	else if (txt.indexOf("PUTO") != -1 || txt.indexOf("PUTA") != -1 || txt.indexOf("POLLA") != -1) {
 		msg.channel.send("eeeeh");
@@ -53,10 +53,13 @@ bot.on("message", msg => {
 		msg.channel.send("te traigo uns mocadors o que tio?");
 	}
 	else if (txt.indexOf("CALLA") != -1) {
-		msg.channel.send("te traigo uns mocadors o que tio?");
+		msg.channel.send("a mi no me mandas callar eh");
+	}
+	else if ((" " + txt + " ").indexOf(" BRO ") != -1 || (" " + txt + " ").indexOf(" BRO, ") != -1 || (" " + txt + " ").indexOf(" ,BRO ") != -1)) {
+		msg.channel.send("bro...");
 	}
 	else if ((" " + txt + " ").indexOf(" BOT ") != -1 || (" " + txt + " ").indexOf(" BOT, ") != -1 || (" " + txt + " ").indexOf(" ,BOT ") != -1) {
-		msg.channel.send("los bots també som persones");
+		msg.channel.send("los bots també somos personas");
 	}
 	else if ((" " + txt + " ").indexOf(" TU ") != -1 || (" " + txt + " ").indexOf(" TU, ") != -1 || (" " + txt + " ").indexOf(" ,TU ") != -1) {
 		msg.channel.send("te estas jugando un baneo loko..");
