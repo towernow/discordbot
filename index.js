@@ -58,7 +58,7 @@ bot.on("message", msg => {
 	else if (txt.indexOf("PIPO") != -1) {
 		msg.channel.send("es un buen perro");
 	}
-	else if ((" " + txt + " ").indexOf(" BRO ") != -1 || (" " + txt + " ").indexOf(" BRO, ") != -1 || (" " + txt + " ").indexOf(" ,BRO ") != -1)) {
+	else if ((" " + txt + " ").indexOf(" BRO ") != -1 || (" " + txt + " ").indexOf(" BRO, ") != -1 || (" " + txt + " ").indexOf(" ,BRO ") != -1) {
 		msg.channel.send("bro...");
 	}
 	else if ((" " + txt + " ").indexOf(" BOT ") != -1 || (" " + txt + " ").indexOf(" BOT, ") != -1 || (" " + txt + " ").indexOf(" ,BOT ") != -1) {
