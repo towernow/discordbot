@@ -34,6 +34,9 @@ bot.on("message", msg => {
 	if (txt.indexOf("HOLA") != -1) {
 		msg.channel.send("que tal bro");
 	}
+	else if (txt.indexOf("GILIPOLLAS") != -1 || txt.indexOf("IMBECIL") != -1 || txt.indexOf("SUBNORMAL") != -1 || txt.indexOf("RETRASADO") != -1) {
+		msg.channel.send("tu madre");
+	}
 	else if (txt.indexOf("PUTO") != -1 || txt.indexOf("PUTA") != -1 || txt.indexOf("POLLA") != -1) {
 		msg.channel.send("eeeeh");
 	}
@@ -46,20 +49,20 @@ bot.on("message", msg => {
 	else if (txt.indexOf("LOL") != -1) {
 		msg.channel.send("tu, vendete ya la cuenta va");
 	}
-	else if (txt.indexOf("GILIPOLLAS") != -1 || txt.indexOf("IMBECIL") != -1 || txt.indexOf("SUBNORMAL") != -1 || txt.indexOf("RETRASADO") != -1) {
-		msg.channel.send("tu madre");
-	}
 	else if (txt.indexOf("LLOR") != -1) {
 		msg.channel.send("te traigo uns mocadors o que tio?");
 	}
 	else if (txt.indexOf("CALLA") != -1) {
-		msg.channel.send("a mi no me mandas callar eh");
+		msg.channel.send("tu, xapala va");
+	}
+	else if (txt.indexOf("PIPO") != -1) {
+		msg.channel.send("es un buen perro");
 	}
 	else if ((" " + txt + " ").indexOf(" BRO ") != -1 || (" " + txt + " ").indexOf(" BRO, ") != -1 || (" " + txt + " ").indexOf(" ,BRO ") != -1)) {
 		msg.channel.send("bro...");
 	}
 	else if ((" " + txt + " ").indexOf(" BOT ") != -1 || (" " + txt + " ").indexOf(" BOT, ") != -1 || (" " + txt + " ").indexOf(" ,BOT ") != -1) {
-		msg.channel.send("los bots també somos personas");
+		msg.channel.send("bot quién?");
 	}
 	else if ((" " + txt + " ").indexOf(" TU ") != -1 || (" " + txt + " ").indexOf(" TU, ") != -1 || (" " + txt + " ").indexOf(" ,TU ") != -1) {
 		msg.channel.send("te estas jugando un baneo loko..");
