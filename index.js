@@ -1,4 +1,6 @@
-﻿﻿const Discord = require("discord.js");
+﻿const Discord = require("discord.js");
+const cron = require("cron");
+const fs = require("fs");
 const bot = new Discord.Client();
 const token = "Njc2MTI0Mzk1Nzg1NDIwODAx.Xkqy5Q.jpuZuQRI1Lw0eoX0z17uc10UMws";
 const pre = "-"; //Time ms (86400*1000)/3(un dia);
@@ -14,13 +16,13 @@ var weapons = [
 	["Puños", 0]
 ];
 
+
+//bot.msgs = require("./msgs.json");
+
 bot.on("ready", () => {
 	console.log("BOT IS ONLINE!");
 	bot.user.setActivity("Press -helpbr");
 })
-
-const fs = require("fs");
-bot.database = require("./database.json");
 
 bot.on("message", msg => {
 	if(dc == null){
@@ -439,6 +441,11 @@ function nextTurn(rndMove) {
 	embd.setDescription(txt);
 	dc.send(embd);
 	checkWin();
+
+	//fs.writeFile('./msgs.json', JSON.stringify(embd), err => {
+		//if (err) return err;
+		//dc.send("Registered msg");
+	//});
 
 	turnoN += 1;
 }
