@@ -17,7 +17,7 @@ var weapons = [
 ];
 
 
-//bot.msgs = require("./msgs.json");
+bot.msgs = require("./msgs.json");
 
 bot.on("ready", () => {
 	console.log("BOT IS ONLINE!");
@@ -442,10 +442,10 @@ function nextTurn(rndMove) {
 	dc.send(embd);
 	checkWin();
 
-	//fs.writeFile('./msgs.json', JSON.stringify(embd), err => {
-		//if (err) return err;
-		//dc.send("Registered msg");
-	//});
+	fs.writeFile('./msgs.json', JSON.stringify(embd), err => {
+		if (err) return err;
+		dc.send("Registered msg");
+	});
 
 	turnoN += 1;
 }
