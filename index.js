@@ -65,12 +65,12 @@ bot.on("message", msg => {
 			var txt = "**Commands:**\n";
 			txt += "-helpbr\n";
 			txt += "-show\n";
+			txt += "-showweapons\n";
 			txt += "-immaster\n";
 			txt += "-addplayer [@Mention] 👑\n";
 			txt += "-removeplayer [indexNum] 👑\n";
 			txt += "-addweapon [weapon name] [weapon power] 👑\n";
 			txt += "-removeweapon [indexNum] 👑\n";
-			txt += "-showweapons 👑\n";
 			txt += "-startbr [time in seconds]👑\n";
 			txt += "-resetbr 👑\n";
 
