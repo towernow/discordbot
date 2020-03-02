@@ -2,7 +2,7 @@
 const cron = require("cron");
 const fs = require("fs");
 const bot = new Discord.Client();
-const token = "Njc2MTI0Mzk1Nzg1NDIwODAx.Xkqy5Q.jpuZuQRI1Lw0eoX0z17uc10UMws";
+const token = "Njc2MTI0Mzk1Nzg1NDIwODAx.Xl1fmw.2ZvSlFVp9ipTZ1mFlh9EAOAgL-I";
 const pre = "-"; //Time ms (86400*1000)/3(un dia);
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -80,22 +80,16 @@ bot.on("message", msg => {
 				msg.author.send("You are now master.");
 			}
 		break;
-		
-		case "TEST2":
-			let _message = bot.database["Torry"].message;
-			msg.channel.send("message is: " + _message);
-		break;
 
 		case "HELPBR":
 			var txt = "**Commands:**\n";
 			txt += "-helpbr\n";
-			txt += "-show\n";
-			txt += "-showweapons\n";
 			txt += "-addplayer [@Mention] 👑\n";
 			txt += "-removeplayer [indexNum] 👑\n";
 			txt += "-addweapon [weapon name] [weapon power] 👑\n";
 			txt += "-removeweapon [indexNum] 👑\n";
-			txt += "-startbr [time in seconds]👑\n";
+			txt += "-generatebr 👑\n";
+			txt += "-startbr 👑\n";
 			txt += "-resetbr 👑\n";
 
 			var embd = new Discord.RichEmbed()
@@ -176,12 +170,10 @@ bot.on("message", msg => {
 			}
 		break;
 
-		case "STARTBR":
-			if (msg.author == master && args[1] != null && !startedGame) {
-				everyMSeconds = args[1] * 1000;
+		case "GENERATEBR":
+			if (msg.author == master && !startedGame) {
 				startedGame = true;
 				nextTurn();
-				intervalMain = setInterval(nextTurn, everyMSeconds);
 
 				var embd = new Discord.RichEmbed()
 					.setColor("#ffff00")
@@ -189,6 +181,12 @@ bot.on("message", msg => {
 					.setDescription("¡DA COMIENZO EL JUGONES BATTLE ROYALE!");
 				dc.send(embd);
 				msg.delete(1000);
+			}
+		break;
+
+		case "STARTBR":
+			if (msg.author == master && startedGame) {
+				
 			}
 		break;
 
@@ -213,7 +211,11 @@ bot.on("message", msg => {
 			}
 		break;
 
+		
 		case "SHOWWEAPONS":
+			if(msg.author != master)
+				return;
+
 			var text = "";
 			for (var i = 0; i < weapons.length; i++) {
 				text += "⚔️ **" + weapons[i][0] + "** with power " + weapons[i][1] + "\n";
@@ -228,6 +230,9 @@ bot.on("message", msg => {
 		break;
 
 		case "SHOW":
+			if(msg.author != master)
+				return;
+				
 			var text = "";
 
 			for (var i = 0; i < players.length; i++) {
@@ -248,6 +253,7 @@ bot.on("message", msg => {
 			dc.send(embd);
 			msg.delete(1000);
 		break;
+		
 
 	}
 })
@@ -439,15 +445,11 @@ function nextTurn(rndMove) {
 	}
 	embd.setFooter("Quedan " + jgRestantes + " jugadores restantes." + "\nIntroduce -show para ver el estado actual de la partida.");
 	embd.setDescription(txt);
-	dc.send(embd);
+	listEmbd(embd);
 	checkWin();
 
-	fs.writeFile('./msgs.json', JSON.stringify(embd), err => {
-		if (err) return err;
-		dc.send("Registered msg");
-	});
-
 	turnoN += 1;
+	nextTurn(); //Repetimos infinitamente
 }
 
 function checkWin() {
@@ -469,7 +471,7 @@ function checkWin() {
 			.setTitle("🎆JUGONES BATTLE ROYALE🎆")
 			.setDescription("VICTORIA ROYALE\nEl vencedor es " + players[winner])
 			.setFooter("Queda " + jgRestantes + " jugador restante." + "\nIntroduce -show para ver el estado final de la partida.");
-		dc.send(embd);
+		listEmbd(embd);
 
 		clearInterval(intervalMain);
 	}
@@ -488,6 +490,18 @@ function returnStats(pid) {
 	} else {
 		return "ERROR PLAYER" + pid;
 	}
-} 
+}
 
-bot.login(process.env.token);
+function listEmbd(em){
+	bot.msgs [turnoN] = {
+		msg: em
+	}
+	fs.writeFile('./msgs.json', JSON.stringify(bot.msgs, null, 4), err => {
+		if (err) return err;
+		console.log("Registered msg");
+	});
+}
+
+//RELOAD TOKEN IN DEVELOPERS DISCORD EVERY TIME IS CHANGED
+//bot.login(process.env.token); //Heroku
+bot.login(token); //Local
