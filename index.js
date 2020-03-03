@@ -2,7 +2,7 @@
 const cron = require("cron");
 const fs = require("fs");
 const bot = new Discord.Client();
-const token = "Njc2MTI0Mzk1Nzg1NDIwODAx.Xl1fmw.2ZvSlFVp9ipTZ1mFlh9EAOAgL-I";
+const token = "Njc2MTI0Mzk1Nzg1NDIwODAx.Xl6fNA.Wf86yFwlm8xYTlZRKkM6UELwIe0";
 const pre = "-"; //Time ms (86400*1000)/3(un dia);
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -10,7 +10,7 @@ const pre = "-"; //Time ms (86400*1000)/3(un dia);
 /////////////////////////////////////////////////////////////////////////////////////
 
 
-var master, dc, startedGame = false, turnoN = 0, intervalMain, everyMSeconds = 1000;
+var master, dc, startedGame = false, turnoN = 0, everyMSeconds = 1000;
 var players = [];
 var weapons = [
 	["Puños", 0]
@@ -21,7 +21,7 @@ bot.msgs = require("./msgs.json");
 
 bot.on("ready", () => {
 	console.log("BOT IS ONLINE!");
-	bot.user.setActivity("Press -helpbr");
+	bot.user.setActivity("Jugando a Fortnite");
 })
 
 bot.on("message", msg => {
@@ -178,7 +178,7 @@ bot.on("message", msg => {
 				var embd = new Discord.RichEmbed()
 					.setColor("#ffff00")
 					.setTitle("🌟JUGONES BATTLE ROYALE🌟")
-					.setDescription("¡DA COMIENZO EL JUGONES BATTLE ROYALE!");
+					.setDescription("¡EL BATTLE ROYALE HA SIDO GENERADO!");
 				dc.send(embd);
 				msg.delete(1000);
 			}
@@ -186,7 +186,12 @@ bot.on("message", msg => {
 
 		case "STARTBR":
 			if (msg.author == master && startedGame) {
-				
+				var embd = new Discord.RichEmbed()
+					.setColor("#ffff00")
+					.setTitle("🌟JUGONES BATTLE ROYALE🌟")
+					.setDescription("¡QUE DE COMIENZO EL BATTLE ROYALE!");
+				dc.send(embd);
+				startbr();
 			}
 		break;
 
@@ -200,7 +205,6 @@ bot.on("message", msg => {
 					["Puños", 0]
 				];
 				turnoN = 0;
-				clearInterval(intervalMain);
 
 				var embd = new Discord.RichEmbed()
 					.setColor("#ffff00")
@@ -445,9 +449,19 @@ function nextTurn(rndMove) {
 	}
 	embd.setFooter("Quedan " + jgRestantes + " jugadores restantes." + "\nIntroduce -show para ver el estado actual de la partida.");
 	embd.setDescription(txt);
-	listEmbd(embd);
-	checkWin();
 
+	//AÑADIMOS AL JSON DE MENSAJES
+	var turnoNum = turnoN.toString();
+	bot.msgs [turnoNum] = {
+		msg: embd
+	}
+	fs.writeFile('./msgs.json', JSON.stringify(bot.msgs, null, 4), err => {
+		if (err) throw err;
+		dc.send("Registered msg");
+	});
+	////////////////////////////////
+
+	checkWin();
 	turnoN += 1;
 	nextTurn(); //Repetimos infinitamente
 }
@@ -471,9 +485,7 @@ function checkWin() {
 			.setTitle("🎆JUGONES BATTLE ROYALE🎆")
 			.setDescription("VICTORIA ROYALE\nEl vencedor es " + players[winner])
 			.setFooter("Queda " + jgRestantes + " jugador restante." + "\nIntroduce -show para ver el estado final de la partida.");
-		listEmbd(embd);
-
-		clearInterval(intervalMain);
+		dc.send(embd);//ESTO DEBERIA AÑADIRSE AL FINAL COMO UN MENSAJE MAS
 	}
 }
 
@@ -492,16 +504,10 @@ function returnStats(pid) {
 	}
 }
 
-function listEmbd(em){
-	bot.msgs [turnoN] = {
-		msg: em
-	}
-	fs.writeFile('./msgs.json', JSON.stringify(bot.msgs, null, 4), err => {
-		if (err) return err;
-		console.log("Registered msg");
-	});
+function startbr(){
+	
 }
 
 //RELOAD TOKEN IN DEVELOPERS DISCORD EVERY TIME IS CHANGED
 //bot.login(process.env.token); //Heroku
-bot.login(token); //Local
+bot.login(token); //Local (node .)
