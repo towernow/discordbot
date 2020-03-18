@@ -2,7 +2,7 @@
 const cron = require("cron");
 const fs = require("fs");
 const bot = new Discord.Client();
-const token = "Njc2MTI0Mzk1Nzg1NDIwODAx.Xl6fNA.Wf86yFwlm8xYTlZRKkM6UELwIe0";
+const token = "Njc2MTI0Mzk1Nzg1NDIwODAx.XnIuyg.cV4FbAYfwY7whkxAdJyQtA8UBKE";
 const pre = "-"; //Time ms (86400*1000)/3(un dia);
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -39,6 +39,9 @@ bot.on("message", msg => {
 	else if (txt.indexOf("GILIPOLLAS") != -1 || txt.indexOf("IMBECIL") != -1 || txt.indexOf("SUBNORMAL") != -1 || txt.indexOf("RETRASADO") != -1) {
 		msg.channel.send("tu madre");
 	}
+	else if (txt.indexOf("NEPIS") != -1 || txt.indexOf("NOPOR") != -1 || txt.indexOf("ÑOCO") != -1) {
+		msg.channel.send("habla bien gilipollas");
+	}
 	else if (txt.indexOf("PUTO") != -1 || txt.indexOf("PUTA") != -1 || txt.indexOf("POLLA") != -1) {
 		msg.channel.send("eeeeh");
 	}
@@ -57,8 +60,17 @@ bot.on("message", msg => {
 	else if (txt.indexOf("CALLA") != -1) {
 		msg.channel.send("tu, xapala va");
 	}
+	else if (txt.indexOf("PUTO AMO") != -1) {
+		msg.channel.send("nice cock bro");
+	}
 	else if (txt.indexOf("PIPO") != -1) {
 		msg.channel.send("es un buen perro");
+	}
+	else if (txt.indexOf("COCK") != -1) {
+		msg.channel.send("that's a chicken motherfucker");
+	}
+	else if (txt.indexOf("PEÑALVA") != -1) {
+		msg.channel.send("sniff sniff");
 	}
 	else if ((" " + txt + " ").indexOf(" BRO ") != -1 || (" " + txt + " ").indexOf(" BRO, ") != -1 || (" " + txt + " ").indexOf(" ,BRO ") != -1) {
 		msg.channel.send("bro...");
@@ -509,5 +521,5 @@ function startbr(){
 }
 
 //RELOAD TOKEN IN DEVELOPERS DISCORD EVERY TIME IS CHANGED
-//bot.login(process.env.token); //Heroku
-bot.login(token); //Local (node .)
+bot.login(process.env.token); //Heroku
+//bot.login(token); //Local (node .)
