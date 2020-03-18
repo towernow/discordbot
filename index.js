@@ -2,7 +2,7 @@
 const cron = require("cron");
 const fs = require("fs");
 const bot = new Discord.Client();
-const token = "Njc2MTI0Mzk1Nzg1NDIwODAx.XnIzjg.R3SNcSK8P_Gg3Lz9ycs4xlVwiTI";
+const token = "Njc2MTI0Mzk1Nzg1NDIwODAx.XnI1EQ.R1FX_XDwq6rW0DdkCwT0EnKBvO4";
 const pre = "-"; //Time ms (86400*1000)/3(un dia);
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -521,5 +521,5 @@ function startbr(){
 }
 
 //RELOAD TOKEN IN DEVELOPERS DISCORD EVERY TIME IS CHANGED
-bot.login(token); //Heroku
+bot.login(process.env.token); //Heroku
 //bot.login(token); //Local (node .)
