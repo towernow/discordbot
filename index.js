@@ -521,5 +521,5 @@ function startbr(){
 }
 
 //RELOAD TOKEN IN DEVELOPERS DISCORD EVERY TIME IS CHANGED
-bot.login(process.env.token); //Heroku
+bot.login(token); //Heroku
 //bot.login(token); //Local (node .)
