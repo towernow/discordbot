@@ -2,7 +2,7 @@
 const cron = require("cron");
 const fs = require("fs");
 const bot = new Discord.Client();
-const token = "Njc2MTI0Mzk1Nzg1NDIwODAx.XnIuyg.cV4FbAYfwY7whkxAdJyQtA8UBKE";
+const token = "Njc2MTI0Mzk1Nzg1NDIwODAx.XnIwdw.JI4GgSiZJKkkjkVlVip8w-EwRg4";
 const pre = "-"; //Time ms (86400*1000)/3(un dia);
 
 /////////////////////////////////////////////////////////////////////////////////////
